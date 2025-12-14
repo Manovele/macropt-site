@@ -1,0 +1,1095 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MacroPT Titanium – Nutrition Planning Engine</title>
+  <meta name="description" content="MacroPT Titanium è uno strumento professionale per pianificare macro, ricette, pasti settimanali e lista spesa.">
+  <link rel="icon" href="assets/logo/mpt-logo.png" type="image/png">
+  <style>
+    :root {
+      --bg: #f5f6f8;
+      --fg: #111214;
+      --muted: #6b7077;
+      --brand: #b3764a; /* rame Titanium */
+      --card: #ffffff;
+      --border: #e4e7ec;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--fg);
+    }
+    .page {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+header {
+  padding: 10px 0;
+  background: #fff;
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 40;
+}
+
+
+.header-inner {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+    }
+    .brand-mark {
+      width: 36px;
+      height: 36px;
+      border-radius: 12px;
+      background: radial-gradient(circle at 30% 20%, #d89a6c, var(--brand));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 18px;
+      font-weight: 700;
+    }
+.brand-logo {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+  display: block;
+}
+ main {
+  flex: 1;
+  padding: 16px 16px 40px;
+}
+
+.hero-section {
+  padding: 56px 0 52px;
+}
+
+
+.hero {
+  max-width: 960px;
+  margin: 0 auto;
+  width: 100%;
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+  column-gap: 40px;
+  row-gap: 32px;
+  align-items: start;
+}
+    @media (max-width: 800px) {
+      .hero {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+   .hero-title {
+  font-size: clamp(30px, 3.2vw, 38px);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin-bottom: 16px;
+}
+
+  .hero-subtitle {
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--muted);
+  margin-bottom: 28px;
+  max-width: 520px;
+}
+
+    .hero-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 24px;
+      font-size: 12px;
+    }
+ .badge {
+  padding: 6px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(0,0,0,0.08);
+  background: #fff;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: background 150ms ease-out,
+              border-color 150ms ease-out,
+              box-shadow 150ms ease-out,
+              transform 150ms ease-out;
+}
+
+
+ .badge-strong {
+  border-color: var(--brand);
+  background: rgba(179,118,74,0.10);
+  color: var(--brand);
+  font-weight: 600;
+}
+
+.badge:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 18px rgba(15,23,42,0.08);
+  border-color: rgba(0,0,0,0.12);
+}
+
+
+  .primary-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border-radius: 999px;
+  border: none;
+  padding: 10px 22px;
+  background: var(--brand);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+  transition: background 150ms ease-out,
+              box-shadow 150ms ease-out,
+              transform 150ms ease-out;
+}
+
+.primary-btn:hover {
+  background: #c48352;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.16);
+  transform: translateY(-1px);
+}
+
+    .primary-btn span.icon {
+      font-size: 16px;
+      transform: translateY(1px);
+    }
+.secondary-link {
+  display: inline-flex;
+  align-items: center;
+  margin-left: 12px;
+  font-size: 13px;
+  color: var(--muted);
+  text-decoration: none;
+  padding: 8px 14px;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  transition: background 150ms ease-out,
+              border-color 150ms ease-out,
+              color 150ms ease-out,
+              transform 150ms ease-out;
+}
+
+.secondary-link:hover {
+  text-decoration: none;
+  color: var(--fg);
+  background: rgba(0,0,0,0.02);
+  border-color: rgba(0,0,0,0.06);
+  transform: translateY(-1px);
+}
+
+   .card {
+  background: var(--card);
+  border-radius: 18px;
+  box-shadow: 0 18px 40px rgba(15,23,42,0.08);
+  padding: 22px 20px;
+  border: 1px solid rgba(228,231,236,0.9);
+  margin-top: 8px;
+}
+
+   .card-meal {
+  margin-top: 18px;
+  padding: 18px 18px 16px;
+  font-size: 12px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #ffffff 0%, #fff7f0 100%);
+  box-shadow: 0 14px 30px rgba(15,23,42,0.10);
+  border: 1px solid rgba(228,231,236,0.9);
+}
+
+
+    .meal-card-header-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 8px;
+      margin-bottom: 6px;
+    }
+
+  .meal-name {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+
+    .meal-macros {
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .meal-mini-table {
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      padding: 6px 8px;
+      background: #fff;
+      font-size: 11px;
+      margin-top: 4px;
+    }
+
+    .meal-mini-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+      padding: 2px 0;
+    }
+
+    .meal-mini-row span:first-child {
+      flex: 1 1 auto;
+    }
+
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+    .chip {
+      font-size: 11px;
+      padding: 4px 8px;
+      border-radius: 999px;
+      background: rgba(179,118,74,0.08);
+      color: var(--brand);
+      font-weight: 600;
+    }
+    .fake-table {
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      overflow: hidden;
+      font-size: 12px;
+    }
+    .fake-table-header,
+    .fake-table-row {
+      display: grid;
+      grid-template-columns: 1.5fr 0.7fr 0.7fr 0.7fr 0.7fr;
+      padding: 6px 10px;
+      align-items: center;
+    }
+    .fake-table-header {
+      background: #f3f4f6;
+      font-weight: 600;
+      color: var(--muted);
+    }
+    .fake-table-row:nth-child(odd) {
+      background: #fff;
+    }
+    .fake-table-row:nth-child(even) {
+      background: #fafbfc;
+    }
+    .right { text-align: right; }
+    footer {
+      padding: 16px 24px;
+      font-size: 11px;
+      color: var(--muted);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: space-between;
+    }
+    footer a {
+      color: inherit;
+      text-decoration: none;
+    }
+    footer a:hover {
+      text-decoration: underline;
+    }
+        /* Sezione "Come funziona" */
+ .section {
+  padding: 72px 16px 80px;
+  background: transparent;
+}
+
+
+.section .container {
+  background: #ffffff;
+  border-radius: 24px;
+  padding: 40px 32px 36px;
+  box-shadow: 0 18px 40px rgba(15,23,42,0.06);
+}
+
+
+.section h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+  letter-spacing: -0.01em;
+}
+.section p.small.muted {
+  font-size: 14px;
+  line-height: 1.7;
+  margin-bottom: 4px;
+}
+
+
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+.how-grid {
+  margin-top: 28px;
+  display: grid;
+  gap: 20px;
+}
+.how-grid .card {
+  height: 100%;
+}
+
+
+    .how-extra {
+      margin-top: 32px;
+      display: grid;
+      gap: 20px;
+    }
+
+ .badge-step {
+  width: 24px;
+  height: 24px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 600;
+  color: #ffffff;
+  background: var(--brand);
+  margin-bottom: 10px;
+}
+
+
+    @media (min-width: 800px) {
+      .how-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+      .how-extra {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hero-copy,
+.hero-preview {
+  opacity: 0;
+  transform: translateY(8px);
+  animation: fadeInUp 0.6s forwards;
+}
+
+.hero-preview {
+  animation-delay: 0.15s;
+}
+
+.hero-preview .card,
+.hero-preview .card-meal {
+  animation: fadeInUp 0.6s forwards;
+  animation-delay: 0.25s;
+}
+
+    /* Cookie banner */
+    .cookie-banner {
+      position: fixed;
+      bottom: 16px;
+      left: 50%;
+      transform: translateX(-50%);
+      max-width: 960px;
+      width: calc(100% - 32px);
+      background: rgba(17,18,20,0.96);
+      color: #f5f5f5;
+      border-radius: 16px;
+      box-shadow: 0 18px 40px rgba(0,0,0,0.35);
+      z-index: 9999;
+      font-size: 13px;
+      display: none;
+    }
+    .cookie-inner {
+      padding: 14px 16px;
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+    .cookie-text {
+      flex: 1 1 220px;
+    }
+    .cookie-text a {
+      color: #f3b787;
+      text-decoration: underline;
+    }
+    .cookie-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: flex-end;
+    }
+    .cookie-btn {
+      border-radius: 999px;
+      padding: 6px 14px;
+      font-size: 12px;
+      border: 1px solid rgba(255,255,255,0.15);
+      background: transparent;
+      color: #f5f5f5;
+      cursor: pointer;
+    }
+    .cookie-btn-primary {
+      background: var(--brand);
+      border-color: var(--brand);
+      color: #fff;
+      font-weight: 600;
+    }
+    @media (max-width: 600px) {
+      .cookie-inner {
+        align-items: flex-start;
+      }
+      .cookie-actions {
+        width: 100%;
+        justify-content: flex-start;
+      }
+    }
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .lang-switch {
+      display: flex;
+      gap: 4px;
+      align-items: center;
+    }
+
+    .lang-btn {
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: #fff;
+      color: var(--muted);
+      font-size: 11px;
+      padding: 4px 10px;
+      cursor: pointer;
+    }
+
+    .lang-btn.active {
+      background: var(--brand);
+      color: #fff;
+      border-color: var(--brand);
+      font-weight: 600;
+    }
+
+
+.fake-table-header,
+.fake-table-row {
+  font-size: 11px;
+}
+
+.fake-table-header div {
+  font-size: 12px !important;
+  font-weight: 600;
+}
+
+    </style>
+
+  <!-- JSON-LD: MacroPT Titanium -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "MacroPT Titanium",
+    "url": "https://macropt.io",
+    "applicationCategory": "HealthApplication",
+    "operatingSystem": "Web",
+    "description": "Planner professionale per gestire macro, ricette, pasti settimanali e lista spesa con precisione avanzata.",
+    "softwareVersion": "1.0",
+    "author": {
+      "@type": "Person",
+      "name": "Emanuele Falcone"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "MacroPT Titanium"
+    },
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "EUR"
+    }
+  }
+  </script>
+
+</head>
+<body>
+
+  <div class="page">
+
+    <!-- COOKIE BANNER -->
+    <div class="cookie-banner" id="cookieBanner">
+      <div class="cookie-inner">
+        <div class="cookie-text" data-i18n="landing.cookie.text">
+          Questo sito utilizza cookie tecnici e, solo se acconsenti, Google Analytics 4
+          per analizzare in forma aggregata l’utilizzo di MacroPT Titanium.
+          Puoi leggere i dettagli nella
+          <a href="privacy.html"
+             target="_blank"
+             rel="noopener noreferrer"
+             data-i18n="landing.cookie.privacy_link">
+            Privacy Policy
+          </a>.
+        </div>
+        <div class="cookie-actions">
+          <button class="cookie-btn"
+                  id="cookieOnlyTech"
+                  data-i18n="landing.cookie.only_tech">
+            Solo cookie tecnici
+          </button>
+          <button class="cookie-btn cookie-btn-primary"
+                  id="cookieAcceptAll"
+                  data-i18n="landing.cookie.accept_all">
+            Accetta anche Analytics
+          </button>
+        </div>
+      </div>
+    </div>
+    <!-- FINE COOKIE BANNER -->
+
+<header>
+  <div class="header-inner">
+    <div class="brand">
+      <img src="assets/logo/mpt-logo.svg" class="brand-logo" alt="MacroPT Logo">
+      <div>MacroPT <span style="font-weight:400; color:var(--muted);">Titanium</span></div>
+    </div>
+
+    <div class="header-right">
+      <a href="app/index.html"
+         class="secondary-link"
+         id="entraPlannerBtn"
+         data-i18n="landing.header.enter_planner">
+        Entra nel planner →
+      </a>
+
+      <div class="lang-switch" id="langSwitch">
+        <button type="button" class="lang-btn" data-lang="it">
+          IT
+        </button>
+        <button type="button" class="lang-btn" data-lang="en">
+          EN
+        </button>
+      </div>
+    </div>
+  </div>
+</header>
+
+
+     <main>
+  <section class="hero-section">
+    <div class="hero">
+
+      <!-- COLONNA SINISTRA -->
+      <div class="hero-copy">
+        <h1 class="hero-title"
+            data-i18n="landing.hero.title">
+          Nutrition planning serio, per chi ragiona in macro.
+        </h1>
+
+        <p class="hero-subtitle"
+           data-i18n="landing.hero.subtitle">
+          MacroPT Titanium ti permette di impostare target C/P/F, creare ricette, comporre i pasti,
+          pianificare la settimana e generare la lista spesa in modo professionale.
+        </p>
+
+        <div class="hero-badges">
+          <div class="badge badge-strong"
+               data-i18n="landing.hero.badge_macros">
+            Macro giornalieri + split per pasto
+          </div>
+
+          <div class="badge"
+               data-i18n="landing.hero.badge_dynamic_recipes">
+            Ricette dinamiche
+          </div>
+
+          <div class="badge"
+               data-i18n="landing.hero.badge_weekly_planner">
+            Planner settimanale
+          </div>
+
+          <div class="badge"
+               data-i18n="landing.hero.badge_smart_list">
+            Lista spesa intelligente
+          </div>
+        </div>
+
+        <a href="app/index.html"
+           class="primary-btn"
+           data-i18n="landing.hero.cta_enter_planner">
+          <span>Entra nel planner</span>
+          <span class="icon">⚡</span>
+        </a>
+
+        <a href="#come-funziona"
+           class="secondary-link"
+           data-i18n="landing.hero.link_how_it_works">
+          Come funziona?
+        </a>
+      </div>
+
+      <!-- COLONNA DESTRA -->
+      <div class="hero-preview">
+        <div class="card">
+          <div class="card-header">
+            <div style="font-size:13px; font-weight:600;"
+                 data-i18n="landing.example.title">
+              Esempio giornata
+            </div>
+
+
+                <div class="chip"
+     data-i18n="landing.example.chip_target">
+  Target 330C / 170P / 70F - 2630 Kcal
+</div>
+
+              </div>
+              <div class="fake-table">
+                <div class="fake-table-header">
+                <div data-i18n="landing.example.col_meal">Pasto</div>
+                <div class="right" data-i18n="landing.example.col_c">C</div>
+                <div class="right" data-i18n="landing.example.col_p">P</div>
+                <div class="right" data-i18n="landing.example.col_f">F</div>
+                <div class="right" data-i18n="landing.example.col_kcal">Kcal</div>
+              </div>
+                </div>
+             <div class="fake-table-row">
+               <div data-i18n="landing.example.meal_breakfast">Colazione</div>
+               <div class="right">80</div>
+               <div class="right">35</div>
+               <div class="right">12</div>
+               <div class="right">568</div>
+         </div>
+            <div class="fake-table-row">
+               <div data-i18n="landing.example.meal_lunch">Pranzo</div>
+               <div class="right">115</div>
+               <div class="right">60</div>
+               <div class="right">20</div>
+               <div class="right">880</div>
+         </div>
+            <div class="fake-table-row">
+               <div data-i18n="landing.example.meal_snack">Spuntino</div>
+               <div class="right">35</div>
+               <div class="right">15</div>
+               <div class="right">8</div>
+            <div class="right">272</div>
+         </div>
+            <div class="fake-table-row">
+               <div data-i18n="landing.example.meal_dinner">Cena</div>
+               <div class="right">100</div>
+               <div class="right">60</div>
+               <div class="right">30</div>
+               <div class="right">910</div>
+         </div>
+
+              </div>
+                           <!-- ESEMPIO PASTO: PASTA AL RAGÙ FIT -->
+            <div class="card card-meal">
+
+              <div class="meal-header-top">
+                <div class="meal-name"
+                  data-i18n="landing.example.lunch_title">
+                    Esempio pranzo – Pasta al Ragù (Fit)
+              </div>
+
+                <div class="meal-macros">
+                  C 129.5 / P 59.5 / F 26.3 — 992 kcal
+                </div>
+              </div>
+
+              <div class="meal-mini-table">
+                <div class="meal-mini-row">
+                  <span>Macinato magro di manzo</span>
+                  <span>163,7 g</span>
+                </div>
+                <div class="meal-mini-row">
+                  <span>Pasta integrale</span>
+                  <span>183,6 g</span>
+                </div>
+                <div class="meal-mini-row">
+                  <span>Passata di pomodoro</span>
+                  <span>150 g</span>
+                </div>
+              </div>
+
+            </div>
+
+            </div>
+          </div>
+        </div>
+      </section>
+       <!-- NUOVA SEZIONE "COME FUNZIONA" -->
+      <section id="come-funziona" class="section">
+
+        <div class="container">
+          <h2 data-i18n="landing.how.title">
+  Come funziona MacroPlanner Titanium
+</h2>
+
+          <p class="muted small"
+   style="max-width:720px;"
+   data-i18n="landing.how.subtitle">
+ Non è un semplice contacalorie. È un planner strutturato per chi vuole gestire macro, ricette e settimana con precisione e coerenza rispetto ai propri obiettivi nutrizionali.
+</p>
+
+
+          <div class="how-grid">
+            <div class="card">
+              <div class="badge-step">1</div>
+              <h3 data-i18n="landing.how.step1.title">
+  Imposti i tuoi obiettivi
+</h3>
+
+<p class="small muted"
+   data-i18n="landing.how.step1.text">
+  Definisci una volta sola i tuoi target giornalieri di carboidrati, proteine e grassi,
+  e come distribuirli tra colazione, pranzo, spuntino e cena.  
+  Tolleranza per pasto compresa.
+</p>
+            </div>
+
+            <div class="card">
+              <div class="badge-step">2</div>
+              <h3 data-i18n="landing.how.step2.title">
+  Costruisci le tue ricette
+</h3>
+<p class="small muted"
+   data-i18n="landing.how.step2.text">
+  Crei le ricette con ingredienti e valori nutrizionali reali.  
+  Il planner calcola macro e kcal per porzione, così non ti inventi i numeri ogni volta.
+</p>
+            </div>
+
+            <div class="card">
+              <div class="badge-step">3</div>
+              <h3 data-i18n="landing.how.step3.title">
+  Componi la settimana
+</h3>
+<p class="small muted"
+   data-i18n="landing.how.step3.text">
+  Assegni le ricette ai pasti della settimana, ricalcoli e vedi subito badge di
+  tolleranza, macro raggiunti e dove stai sforando.  
+  Se qualcosa non torna, modifichi la ricetta o i grammi, non “speri”.
+</p>
+            </div>
+
+            <div class="card">
+              <div class="badge-step">4</div>
+              <h3 data-i18n="landing.how.step4.title">
+  Generi la lista spesa
+</h3>
+<p class="small muted"
+   data-i18n="landing.how.step4.text">
+  Con un click ottieni la lista spesa completa: ingredienti, grammi totali,
+  grammi per confezione e numero di confezioni.  
+  Dal planner al carrello, senza conti a mano.
+</p>
+            </div>
+          </div>
+
+          <div class="how-extra">
+            <div class="card">
+              <h3 data-i18n="landing.how.for_whom.title">
+  Per chi è pensato
+</h3>
+ <p class="small muted"
+   data-i18n="landing.how.for_whom.text">
+  Per chi vuole sapere esattamente cosa sta mangiando, non “più o meno”.
+  Atleti, coach, persone che seguono un piano e non hanno voglia di
+  rifare i conti ogni settimana.
+</p>
+            </div>
+            <div class="card">
+              <h3 data-i18n="landing.how.not_do.title">
+  Cosa NON fa
+</h3>
+<p class="small muted"
+   data-i18n="landing.how.not_do.text">
+  Non è un social, non ha notifiche inutili e non ti dà “consigli magici”.
+  Ti dà gli strumenti, i numeri e l’ordine. Le decisioni restano tue.
+</p>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- FINE SEZIONE "COME FUNZIONA" -->
+
+    </main>
+
+    <footer>
+      <div data-i18n="landing.footer.rights">
+  © MacroPT Titanium – Tutti i diritti riservati.
+</div>
+      <div>
+        <a href="privacy.html"
+   target="_blank"
+   rel="noopener noreferrer"
+   data-i18n="landing.footer.privacy">
+  Privacy
+</a> ·
+        <a href="terms.html"
+   target="_blank"
+   rel="noopener noreferrer"
+   data-i18n="landing.footer.terms">
+  Termini d'uso
+</a> ·
+        <a href="mailto:emanuelefalcone@hotmail.com"
+   data-i18n="landing.footer.contact">
+  Contatti
+</a>
+
+      </div>
+    </footer>
+  </div>
+  <!-- SCRIPT MULTILINGUA LANDING -->
+  <script>
+    (function(){
+      var LANG_KEY = "mpt_lang";
+      var DEFAULT_LANG = "it";
+      var LANG_BASE_PATH = "lang/lang-"; // <root>/lang/lang-it.json, lang-en.json
+
+      function getSavedLang(){
+        try {
+          var v = localStorage.getItem(LANG_KEY);
+          return (v === "it" || v === "en") ? v : null;
+        } catch(e){
+          return null;
+        }
+      }
+
+      function saveLang(lang){
+        try {
+          localStorage.setItem(LANG_KEY, lang);
+        } catch(e){}
+      }
+
+      function setHtmlLang(lang){
+        try {
+          document.documentElement.lang = lang;
+        } catch(e){}
+      }
+
+      function setActiveLangButtons(lang){
+        var btns = document.querySelectorAll(".lang-btn");
+        btns.forEach(function(btn){
+          var v = btn.getAttribute("data-lang");
+          if (v === lang) {
+            btn.classList.add("active");
+          } else {
+            btn.classList.remove("active");
+          }
+        });
+      }
+
+      function getNested(dict, path){
+        if (!dict) return null;
+        var parts = path.split(".");
+        var cur = dict;
+        for (var i=0; i<parts.length; i++){
+          if (cur && Object.prototype.hasOwnProperty.call(cur, parts[i])) {
+            cur = cur[parts[i]];
+          } else {
+            return null;
+          }
+        }
+        return cur;
+      }
+
+      function applyTranslations(dict){
+        if (!dict) return;
+        var els = document.querySelectorAll("[data-i18n]");
+        els.forEach(function(el){
+          var key = el.getAttribute("data-i18n");
+          if (!key) return;
+
+          // Cerchiamo la chiave nel JSON (es: "landing.hero.title")
+          var value = getNested(dict, key);
+          if (typeof value !== "string") return;
+
+          // Gestione placeholder (se in futuro servirà sugli input)
+          if (el.tagName === "INPUT" && el.hasAttribute("placeholder")) {
+            el.setAttribute("placeholder", value);
+            return;
+          }
+
+          // Caso speciale: cookie-text con link dentro -> per ora non tocchiamo il contenuto
+          if (key === "landing.cookie.text") {
+            return;
+          }
+
+          // Default: sostituiamo il testo
+          el.textContent = value;
+        });
+      }
+
+      function loadLangJson(lang){
+        return new Promise(function(resolve){
+          var url = LANG_BASE_PATH + lang + ".json";
+          fetch(url, { cache: "no-cache" })
+            .then(function(res){
+              if (!res.ok) throw new Error("HTTP " + res.status);
+              return res.json();
+            })
+            .then(function(data){ resolve(data); })
+            .catch(function(err){
+              console.error("Errore caricando i18n", lang, err);
+              resolve(null);
+            });
+        });
+      }
+
+      function setLanguage(lang){
+        return loadLangJson(lang).then(function(dict){
+          if (!dict) return;
+          saveLang(lang);
+          setHtmlLang(lang);
+          setActiveLangButtons(lang);
+          applyTranslations(dict);
+        });
+      }
+
+      document.addEventListener("DOMContentLoaded", function(){
+        var lang = getSavedLang() || DEFAULT_LANG;
+        setActiveLangButtons(lang);
+        setHtmlLang(lang);
+
+        // Aggancio click sui bottoni IT / EN
+        var btns = document.querySelectorAll(".lang-btn");
+        btns.forEach(function(btn){
+          btn.addEventListener("click", function(){
+            var v = this.getAttribute("data-lang");
+            if (!v) return;
+            setLanguage(v);
+          });
+        });
+
+        // Prima applicazione lingua al load
+        setLanguage(lang);
+      });
+    })();
+  </script>
+
+<script>
+  (function(){
+    var GA_ID = "G-FML2EV98DM";
+
+    function loadAnalytics(){
+      if (window.__gaLoaded) return;
+      window.__gaLoaded = true;
+
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){ dataLayer.push(arguments); }
+      window.gtag = gtag;
+
+      var s = document.createElement("script");
+      s.async = true;
+      s.src = "https://www.googletagmanager.com/gtag/js?id=" + GA_ID;
+      s.onload = function(){
+        gtag("js", new Date());
+        gtag("config", GA_ID);
+
+        // >>> TRACK EVENT: ENTRA NEL PLANNER <<<
+        var btnEntra = document.getElementById("entraPlannerBtn");
+        if (btnEntra) {
+          btnEntra.addEventListener("click", function(){
+            gtag('event', 'entra_planner', {
+              event_category: 'engagement',
+              event_label: 'Entra nel planner dal sito'
+            });
+          });
+        }
+        // >>> FINE TRACK EVENT <<<
+      };
+      document.head.appendChild(s);
+    }
+
+    function getConsent(){
+      try {
+        return localStorage.getItem("mpt_cookie_consent") || "";
+      } catch(e){
+        return "";
+      }
+    }
+
+    function setConsent(value){
+      try {
+        localStorage.setItem("mpt_cookie_consent", value);
+      } catch(e){}
+    }
+
+    function initCookieBanner(){
+      var banner = document.getElementById("cookieBanner");
+      if (!banner) return;
+
+      var current = getConsent();
+      if (current === "all"){
+        loadAnalytics();
+        return;
+      }
+      if (current === "necessary"){
+        return;
+      }
+
+      banner.style.display = "block";
+
+      var btnTech = document.getElementById("cookieOnlyTech");
+      var btnAll = document.getElementById("cookieAcceptAll");
+
+      if (btnTech){
+        btnTech.addEventListener("click", function(){
+          setConsent("necessary");
+          banner.style.display = "none";
+        });
+      }
+
+      if (btnAll){
+        btnAll.addEventListener("click", function(){
+          setConsent("all");
+          banner.style.display = "none";
+          loadAnalytics();
+        });
+      }
+    }
+
+    document.addEventListener("DOMContentLoaded", initCookieBanner);
+  })();
+</script>
+</body>
+</html>

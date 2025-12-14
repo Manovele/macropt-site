@@ -1,0 +1,96 @@
+STEP 2 – MAPPATURA TESTI FISSI (LANDING + PLANNER)
+
+========================= LANDING – TESTI E CHIAVI
+=========================
+
+[cookie + header] cookie_banner_text = Questo sito utilizza cookie
+tecnici e, solo se acconsenti, Google Analytics 4 per analizzare in
+forma aggregata l’utilizzo di MacroPT Titanium. Puoi leggere i dettagli
+nella Privacy Policy. cookie_link_privacy = Privacy Policy
+cookie_btn_only_tech = Solo cookie tecnici cookie_btn_accept_analytics =
+Accetta anche Analytics brand_name_main = MacroPT brand_name_suffix =
+Titanium hero_tagline = MacroPT Titanium – Nutrition Planning Engine
+hero_cta_enter_planner = Entra nel planner →
+
+[hero] hero_subtitle = Nutrition planning serio, per chi ragiona in
+macro. hero_description = MacroPT Titanium ti permette di impostare
+target C/P/F, creare ricette, comporre i pasti, pianificare la settimana
+e generare la lista spesa in modo professionale. hero_feature_macros =
+Macro giornalieri + split per pasto hero_feature_recipes = Ricette
+dinamiche hero_feature_planner = Planner settimanale
+hero_feature_shopping = Lista spesa intelligente hero_cta_secondary =
+Entra nel planner
+
+[come funziona] section_how_title = Come funziona section_how_subtitle =
+Step by step, senza Excel e senza app “cut & paste” how_step1_title =
+Imposti i tuoi obiettivi how_step1_text = Definisci carboidrati,
+proteine e grassi giornalieri, più la distribuzione per pasto. Il
+planner calcola le kcal teoriche e ti mostra subito se i conti tornano.
+how_step2_title = Crea le tue ricette how_step2_text1 = Macro e kcal
+sempre in vista, con grammi totali e margini chiari. how_step2_text2 =
+Puoi fissare ingredienti, usare default, salvare ricette e duplicarle
+per varianti. how_step3_title = Componi la settimana how_step3_text =
+Assegni le ricette ai pasti della settimana, ricalcoli e vedi subito
+badge di tolleranza, macro raggiunti e dove stai sforando.
+how_step4_title = Generi la lista spesa how_step4_text = Con un click
+ottieni la lista spesa completa: ingredienti, grammi totali, grammi per
+confezione e numero di confezioni.
+
+[sezioni finali] section_for_whom_title = Per chi è pensato
+section_for_whom_text = Per chi vuole sapere esattamente cosa sta
+mangiando, non “più o meno”. section_what_not_title = Cosa NON fa
+section_what_not_text = Non è un social, non ha notifiche inutili e non
+ti dà “consigli magici”. Ti dà gli strumenti, i numeri e l’ordine. Le
+decisioni restano tue.
+
+[footer] footer_copyright = © MacroPT Titanium – Tutti i diritti
+riservati. footer_link_privacy = Privacy footer_link_terms = Termini
+d’uso footer_link_contacts = Contatti
+
+========================= PLANNER – TESTI PRINCIPALI
+=========================
+
+[header + login] planner_page_title = MacroPT Titanium – Planner Macro &
+Ricette planner_logo_title = MacroPlanner Titanium planner_login_intro =
+Accedi con email e password per usare il planner. planner_label_email =
+Email planner_label_password = Password planner_btn_login = Login
+planner_btn_register = Registrati planner_btn_logout = Logout
+planner_header_title = Strumento Macro & Ricette
+
+[barra strumenti] planner_btn_autoload_today = Auto carica menu del
+giorno planner_btn_history = Storico planner_btn_export = Esporta
+planner_btn_import = Importa planner_label_data_url = URL dati
+planner_btn_use_url = Usa planner_btn_reload = Ricarica
+
+[macro UI] planner_label_meal = Pasto planner_label_kcal = Kcal
+planner_label_c_grams = C (g) planner_label_p_grams = P (g)
+planner_label_f_grams = F (g) planner_label_tolerance = Tolleranza
+planner_label_totals = Totali planner_label_target = Target
+
+[lista spesa] shopping_section_title = Lista Spesa Settimanale
+shopping_btn_generate = Genera/aggiorna shopping_btn_export_csv =
+Esporta CSV shopping_help_text = Somma gli ingredienti di tutti i pasti
+pianificati. shopping_col_ingredient = Ingrediente shopping_col_total_g
+= Totale (g) shopping_col_g_per_pack = (g) x conf shopping_col_n_packs =
+N. Conf. (~) shopping_empty_hint = Premi “Genera/aggiorna”.
+
+[note tecniche] note_ingredients_100g = Valori ingredienti su 100 g
+(C/P/F); kcal = 4C + 4P + 9F. note_default_grams = Puoi impostare
+grammi/flag di default per ogni ingrediente. note_strict_math = Solver
+“strict matematica”: minimizza errore C/P/F. note_local_storage = Dati
+salvati in locale. note_recipe_click = Clicca il titolo ricetta per
+aprire composizione.
+
+[andamento peso] weight_section_title = Andamento Peso weight_btn_add =
+Registra peso weight_btn_export_csv = Esporta CSV weight_help_text = I
+valori vengono salvati nel planner. weight_col_date = Data
+weight_col_weight = Peso (kg) weight_empty_text = Nessun dato.
+
+[storico] history_section_title = Storico giornate
+history_btn_export_csv = Esporta CSV history_btn_clear = Svuota
+history_btn_close = Chiudi history_help_text = Salva giornate e
+confronta kcal. history_col_date = Data history_col_c = C (g)
+history_col_p = P (g) history_col_f = F (g) history_col_kcal_theoretical
+= kcal teoriche history_col_kcal_label = kcal etichetta
+history_col_delta = Delta history_col_notes = Note history_empty_text =
+Nessuna giornata salvata.

@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+# Evita che Google indicizzi l'app, che non serve alla SEO
+Disallow: /app/
+
+# Indica la tua sitemap ufficiale
+Sitemap: https://macropt.io/sitemap.xml
