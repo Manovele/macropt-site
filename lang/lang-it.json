@@ -1,0 +1,441 @@
+{
+  "landing": {
+    "cookie": {
+      "text": "Questo sito utilizza cookie tecnici e, solo se acconsenti, Google Analytics 4 per analizzare in forma aggregata l’utilizzo di MacroPT Titanium. Puoi leggere i dettagli nella Privacy Policy.",
+      "privacy_link": "Privacy Policy",
+      "only_tech": "Solo cookie tecnici",
+      "accept_all": "Accetta anche Analytics"
+    },
+    "header": {
+      "enter_planner": "Entra nel planner →"
+    },
+    "hero": {
+      "title": "Nutrition planning serio, per chi ragiona in macro.",
+      "subtitle": "MacroPT Titanium ti permette di impostare target C/P/F, creare ricette, comporre i pasti, pianificare la settimana e generare la lista spesa in modo professionale.",
+      "badge_macros": "Macro giornalieri + split per pasto",
+      "badge_dynamic_recipes": "Ricette dinamiche",
+      "badge_weekly_planner": "Planner settimanale",
+      "badge_smart_list": "Lista spesa intelligente",
+      "cta_enter_planner": "Entra nel planner",
+      "link_how_it_works": "Come funziona?"
+    },
+    "example": {
+      "title": "Esempio giornata",
+      "chip_target": "Target 330C / 170P / 70F - 2630 kcal",
+      "col_meal": "Pasto",
+      "col_c": "C",
+      "col_p": "P",
+      "col_f": "F",
+      "col_kcal": "kcal",
+      "meal_breakfast": "Colazione",
+      "meal_lunch": "Pranzo",
+      "meal_snack": "Spuntino",
+      "meal_dinner": "Cena",
+      "lunch_title": "Esempio pranzo – Pasta al Ragù (fit)"
+    },
+    "how": {
+      "title": "Come funziona MacroPlanner Titanium",
+      "subtitle": "Non è un semplice contacalorie. È un planner strutturato per chi vuole gestire macro, ricette e settimana con precisione e coerenza rispetto ai propri obiettivi nutrizionali.",
+      "step1": {
+        "title": "Imposti i tuoi obiettivi",
+        "text": "Definisci una volta sola i tuoi target giornalieri di carboidrati, proteine e grassi, e come distribuirli tra colazione, pranzo, spuntino e cena. Tolleranza per pasto compresa."
+      },
+      "step2": {
+        "title": "Costruisci le tue ricette",
+        "text": "Crei le ricette con ingredienti e valori nutrizionali reali. Il planner calcola macro e kcal per porzione, così non ti inventi i numeri ogni volta."
+      },
+      "step3": {
+        "title": "Componi la settimana",
+        "text": "Assegni le ricette ai pasti della settimana, ricalcoli e vedi subito badge di tolleranza, macro raggiunti e dove stai sforando. Se qualcosa non torna, modifichi la ricetta o i grammi, non “speri”."
+      },
+      "step4": {
+        "title": "Generi la lista spesa",
+        "text": "Con un click ottieni la lista spesa completa: ingredienti, grammi totali, grammi per confezione e numero di confezioni. Dal planner al carrello, senza conti a mano."
+      },
+      "for_whom": {
+        "title": "Per chi è pensato",
+        "text": "Per chi vuole sapere esattamente cosa sta mangiando, non “più o meno”. Atleti, coach, persone che seguono un piano e non hanno voglia di rifare i conti ogni settimana."
+      },
+      "not_do": {
+        "title": "Cosa NON fa",
+        "text": "Non è un social, non ha notifiche inutili e non ti dà “consigli magici”. Ti dà gli strumenti, i numeri e l’ordine. Le decisioni restano tue."
+      }
+    },
+    "demo": {
+      "title": "Uno sguardo dentro MacroPlanner Titanium",
+      "subtitle": "Tre esempi reali di cosa vedi quando usi lo strumento: il pasto bilanciato, la versione splittata e la ricetta completa.",
+      "card1_label": "Pasto singolo",
+      "card1_title": "Un pasto già bilanciato",
+      "card1_text": "Nome pasto, macro e calorie sono già allineati ai tuoi target giornalieri. Non devi fare controlli a mano: il planner li ha già fatti per te.",
+      "card2_label": "Pasto splittato",
+      "card2_title": "Lo stesso pasto, in due piatti",
+      "card2_text": "Il sistema prende lo stesso pasto e lo divide in primo e secondo piatto, mantenendo identici totali di carboidrati, proteine, grassi e kcal.",
+      "card3_label": "Ricetta completa",
+      "card3_title": "La ricetta dietro ai numeri",
+      "card3_text": "Ingredienti pesati, quantità in grammi e struttura pronta per generare la lista spesa con numero di confezioni da comprare."
+    },
+    "footer": {
+      "rights": "© MacroPT Titanium – Tutti i diritti riservati.",
+      "privacy": "Privacy",
+      "terms": "Termini d'uso",
+      "contact": "Contatti"
+    }
+  },
+  "planner": {
+    "meta": {
+      "title": "MacroPT Titanium – Planner Macro & Ricette"
+    },
+    "auth": {
+      "title": "MacroPlanner Titanium",
+      "subtitle": "Accedi con email e password per usare il planner.",
+      "emailLabel": "Email",
+      "passwordLabel": "Password",
+      "loginButton": "Accedi",
+      "signupButton": "Registrati",
+      "statusDisconnected": "Non connesso",
+      "statusConnected": "Connesso",
+      "logoutButton": "Logout",
+      "statusConnectedAs": "Connesso come {email}",
+      "messages": {
+        "loginMissingFields": "Inserisci email e password.",
+        "loginInProgress": "Accesso in corso...",
+        "loginFailedGeneric": "Login fallito: {message}",
+        "loginUnexpectedError": "Errore inatteso nel login.",
+        "signupMissingFields": "Inserisci email e password per registrarti.",
+        "signupInProgress": "Registrazione in corso...",
+        "signupFailedGeneric": "Registrazione fallita: {message}",
+        "signupSuccess": "Registrazione riuscita. Controlla la tua email, conferma l'indirizzo e poi effettua il login.",
+        "signupUnexpectedError": "Registrazione fallita per errore imprevisto."
+      }
+    },
+    "header": {
+      "title": "Strumento Macro & Ricette",
+      "autoLoadToday": "Auto carica menu del giorno",
+      "history": "Storico",
+      "export": "Esporta",
+      "import": "Importa",
+      "dataUrlLabel": "URL dati",
+      "recipesPlaceholder": "Ricette.json",
+      "useButton": "Usa",
+      "reloadButton": "Ricarica"
+    },
+    "dailyTargets": {
+      "title": "Obiettivi giornalieri",
+      "carbs": "Carboidrati (g)",
+      "protein": "Proteine (g)",
+      "fat": "Grassi (g)",
+      "kcal": "kcal totali (auto)"
+    },
+    "mealSplit": {
+      "title": "Percentuali per pasto",
+      "sumNote": "La somma deve essere 100%",
+      "sumLabel": "Somma: {value}%",
+      "sumOk": "ok",
+      "sumMustBe100": "deve essere 100%",
+      "breakfast": "Colazione (%)",
+      "lunch": "Pranzo (%)",
+      "snack": "Spuntino (%)",
+      "dinner": "Cena (%)",
+      "ingredientsInfo": "I grammi indicati sono per l'intera ricetta; il solver ripartisce C/P/F sui pasti abilitati."
+    },
+    "recipes": {
+      "title": "Le tue ricette",
+      "viewLabel": "Vista",
+      "viewList": "Lista",
+      "viewCategories": "Categorie",
+      "newRecipeButton": "+ Nuova ricetta",
+      "searchPlaceholder": "Cerca ricette...",
+      "emptyState": "Nessuna ricetta disponibile.",
+      "emptyForMeal": "Nessuna ricetta per questo pasto.",
+      "hintCreateFromTitle": "Puoi creare una nuova ricetta partendo dal titolo del pasto.",
+      "previewTitle": "Dettaglio ricetta",
+      "previewEdit": "Modifica",
+      "previewClose": "Chiudi",
+      "unnamed": "Senza nome",
+      "renameButton": "Rinomina",
+      "deleteButton": "Elimina",
+      "addIngredientButton": "+ Ingrediente",
+      "renamePrompt": "Nuovo nome ricetta?",
+      "availableForLabel": "Disponibile per:",
+      "noDescription": "Nessuna descrizione inserita.",
+      "perMeal": {
+        "addButton": "Aggiungi ricetta al pasto",
+        "addFromLibrary": "Aggiungi da archivio",
+        "configureButton": "Fissa",
+        "configureHint": "Imposta grammi e FISSO per questo ingrediente solo nei pasti in cui la ricetta è abilitata (quelli selezionati sopra).",
+        "mealBreakfast": "Colazione",
+        "mealLunch": "Pranzo",
+        "mealSnack": "Spuntino",
+        "mealDinner": "Cena",
+        "removeButton": "Rimuovi",
+        "removeHint": "Rimuove la ricetta solo dal pasto corrente, non dall’archivio ricette.",
+        "fixedGramsPrompt": "\"{ingredient}\" – {meal}: grammi fissi (lascia vuoto per nessun override)",
+        "fixedFlagConfirm": "\"{ingredient}\" – {meal}: segna FISSO? (OK = sì, Annulla = no)",
+        "selectIngredientPlaceholder": "Seleziona ingrediente..."
+      },
+      "autoFromLabels": {
+        "descriptionLabel": "Descrizione",
+        "newIngredientLabel": "Nuovo ingrediente (salvato in Archivio)",
+        "newIngredientNamePlaceholder": "Nome",
+        "newIngredientCPlaceholder": "C/100g",
+        "newIngredientPPlaceholder": "P/100g",
+        "newIngredientFPlaceholder": "F/100g",
+        "newIngredientPackPlaceholder": "g/conf.",
+        "createAndAddButton": "Crea e aggiungi",
+        "recalcButton": "Ricalcola",
+        "mealToleranceLabel": "Tolleranza pasto",
+        "useGlobalTolerance": "Usa globale",
+        "recipePrefix": "Ricetta (",
+        "recipePlaceholder": "— Ricetta —",
+        "libHeaderIngredient": "Ingrediente",
+        "libHeaderC100": "C/100g",
+        "libHeaderP100": "P/100g",
+        "libHeaderF100": "F/100g",
+        "libHeaderPack": "g/conf.",
+        "libHeaderDefaultGrams": "g di default",
+        "libHeaderDefaultFixed": "Fissa di default",
+        "libHeaderPerMeal": "Per pasto",
+        "summaryHeaderIngredient": "Ingrediente",
+        "summaryHeaderGrams": "g",
+        "summaryHeaderC": "C",
+        "summaryHeaderP": "P",
+        "summaryHeaderF": "F",
+        "summaryHeaderKcal": "kcal",
+        "summaryHeaderKcalLabel": "kcal etichetta ~",
+        "suggestedHeader": "Ingredienti e grammi suggeriti (con contributo C/P/F) — {slotLabel}",
+        "noIngredients": "Nessun ingrediente (seleziona ricette e ricalcola la settimana).",
+        "showDescriptionTooltip": "Mostra descrizione ricetta",
+        "summaryHeaderFixed": "Fissa",
+        "libHeaderKcal100": "kcal/100g",
+        "libHeaderKcalLabel100": "kcal etichetta/100g"
+      },
+        "photoImport": {
+        "button": "Importa da foto",
+        "modalTitle": "Importa ingrediente da foto",
+        "close": "Chiudi",
+        "subtitle": "Carica una foto dell’etichetta: ti preparo una bozza, poi confermi.",
+        "pickImage": "Scegli foto",
+        "confirm": "Crea ingrediente",
+        "nameLabel": "Nome ingrediente",
+        "carbs100": "Carbo (100g)",
+        "protein100": "Proteine (100g)",
+        "fat100": "Grassi (100g)",
+        "kcalLabel100": "kcal etichetta (100g)",
+        "noPreview": "(Nessuna immagine selezionata)",
+        "errGeneric": "Errore",
+        "errNoOpenRecipe": "Apri una ricetta (clic sul titolo) prima di importare un ingrediente.",
+        "errMissingName": "Inserisci un nome ingrediente.",
+        "errInvalidMacros": "Inserisci Carbo/Proteine/Grassi validi (per 100g).",
+        "errSumTooHigh": "Valori macro strani: la somma per 100g è troppo alta. Controlla l’etichetta.",
+        "statusReading": "Sto leggendo l’etichetta…",
+        "warnOcrLowConfidence": "Ho letto l’etichetta, ma controlla i valori.",
+        "errOcrFailed": "Lettura etichetta fallita. Inserisci i macro manualmente.",
+        "errOcrNoMacros": "Non riesco a leggere i macro. Inseriscili manualmente."
+      }
+    },
+    "meals": {
+      "title": "Pasti (oggi)",
+      "loadTodayButton": "Carica menu di oggi",
+      "emptyState": "Nessun pasto impostato per oggi.",
+      "recipeLabel": "Ricetta",
+      "selectRecipePlaceholder": "Seleziona una ricetta...",
+      "lock": "Blocca",
+      "unlock": "Sblocca",
+      "recalc": "Ricalcola"
+    },
+    "shopping": {
+      "title": "Lista spesa settimanale",
+      "subtitle": "Genera automaticamente la spesa a partire dai pasti della settimana.",
+      "generateButton": "Genera/aggiorna",
+      "exportCsvButton": "Esporta CSV",
+      "clearButton": "Svuota lista",
+      "emptyState": "Lista vuota.",
+      "note": "Valori ingredienti su 100 g. Le confezioni sono stimate in base ai grammi totali.",
+      "headerIngredient": "Ingrediente",
+      "headerTotal": "Totale (g)",
+      "headerPerPack": "(g) x conf",
+      "headerNumPacks": "N. Conf. (~)",
+      "note1": "Valori ingredienti su 100 g (C/P/F); kcal = 4C + 4P + 9F.",
+      "note2": "Puoi impostare per ogni ingrediente i grammi di default.",
+      "note3": "Solver strict matematica.",
+      "note4": "Dati salvati in locale. Import/Export salva anche planner e archivio.",
+      "note5": "Clicca il titolo ricetta per aprire/chiudere la composizione. Archivio ingredienti riutilizzabile.",
+      "csvFilename": "lista_spesa_settimanale.csv",
+      "csvHeader": "Ingrediente,Totale (g),Totale (kg),Conf. (~)"
+    },
+    "week": {
+      "title": "Planner Settimanale",
+      "solveAll": "Ricalcola tutta la settimana",
+      "clearAll": "Pulisci settimana",
+      "useSameTargets": "Usa gli stessi target giornalieri",
+      "summaryHeaders": {
+        "day": "Giorno",
+        "breakfast": "Colazione",
+        "lunch": "Pranzo",
+        "snack": "Spuntino",
+        "dinner": "Cena"
+      }
+    },
+    "history": {
+      "title": "Storico giornate",
+      "subtitle": "Salva e rivedi le giornate con i tuoi macro.",
+      "emptyState": "Nessuna giornata salvata.",
+      "saveDaySuccess": "Giornata salvata nello storico.",
+      "exportCsvButton": "Esporta CSV",
+      "csvFilename": "storico_giornate.csv",
+      "csvHeader": "Data,C (g),P (g),F (g),kcal teoriche,kcal dai pasti,Scostamento kcal (%),Note",
+      "clear": "Svuota",
+      "close": "Chiudi",
+      "headerDate": "Data",
+      "headerC": "C (g)",
+      "headerP": "P (g)",
+      "headerF": "F (g)",
+      "headerKcalTheoretical": "kcal teoriche",
+      "headerKcalLabel": "kcal etichetta",
+      "headerDelta": "Δ etichetta − teorico",
+      "headerNotes": "Note"
+    },
+    "weight": {
+      "title": "Andamento peso",
+      "subtitle": "Registra il tuo peso e tieni traccia dell'andamento.",
+      "inputLabel": "Peso (kg)",
+      "inputPlaceholder": "es. 74,5",
+      "logButton": "Registra peso",
+      "exportCsvButton": "Esporta CSV",
+      "emptyState": "Nessun peso registrato.",
+      "description": "I valori vengono salvati nel planner e inclusi nell'Export JSON (chiave \"pesoLog\"). Puoi modificare o cancellare ciascun dato in tabella.",
+      "invalidInput": "Inserisci un peso valido.",
+      "tableDate": "Data",
+      "tableValue": "Peso (kg)",
+      "tableActions": "Azioni",
+      "tableEditButton": "Modifica",
+      "tableDeleteButton": "Elimina",
+      "editPrompt": "Nuovo valore per il {date} (kg):",
+      "chartLabel": "Peso (kg)",
+      "delta7Label": "Δ 7 giorni: {delta} kg"
+    },
+    "alerts": {
+      "historyEmpty": "Storico vuoto.",
+      "shoppingEmpty": "Lista spesa vuota.",
+      "removeIngredientConfirm": "Rimuovere l'ingrediente dalla ricetta?",
+      "invalidData": "Dati non validi.",
+      "genericError": "Si è verificato un errore imprevisto.",
+      "splitFixedConfirm": "\"{name}\" – {mealLabel}: segnare come grammi fissi?",
+      "splitClearFixedConfirm": "\"{name}\" – {mealLabel}: rimuovere i grammi fissi?",
+      "noMealsEnabledForRecipe": "Nessun pasto è abilitato per questa ricetta. Attiva almeno un pasto nelle impostazioni.",
+      "remoteJsonInvalid": "File JSON non valido.",
+      "remoteJsonUseError": "Impossibile utilizzare il JSON importato.",
+      "remoteJsonDownloadError": "Errore durante il download del JSON remoto.",
+      "nameRequired": "Inserisci un nome.",
+      "emptyList": "Lista vuota.",
+      "fileInvalid": "File non valido.",
+      "fileReadError": "Impossibile leggere il file.",
+      "urlSaved": "URL salvato.",
+      "invalidValue": "Valore non valido."
+    },
+    "dialogs": {
+      "recipeName": "Nome ricetta?",
+      "deleteRecipeConfirm": "Eliminare la ricetta?",
+      "clearWeekSelectionsConfirm": "Svuotare tutte le selezioni della settimana?",
+      "clearHistoryStorageConfirm": "Svuotare definitivamente lo storico?",
+      "clearHistoryStateConfirm": "Svuotare lo storico giornate?",
+      "deleteWeightEntryConfirm": "Eliminare il valore del {date}?"
+    },
+    "toasts": {
+      "plannerLoadError": "⚠️ Errore caricando il planner",
+      "plannerUpdateError": "⚠️ Errore aggiornando il planner",
+      "plannerSaveError": "⚠️ Errore di salvataggio",
+      "plannerUnexpectedSaveError": "⚠️ Errore imprevisto nel salvataggio",
+      "weightSaveError": "⚠️ Errore salvataggio peso",
+      "weightDeleteError": "⚠️ Errore eliminazione peso",
+      "weightSaved": "⚖️ Peso aggiornato",
+      "weightDeleted": "🗑️ Peso eliminato",
+      "noRecipesForSave": "⚠️ Salvataggio saltato: nessuna ricetta caricata",
+      "syncInProgress": "💾 Salvataggio in corso…",
+      "plannerSaved": "📊 Planner aggiornato",
+      "cloudSaved": "✅ Salvato su cloud"
+    },
+    "dailyTotals": {
+      "title": "Totali giornalieri vs Target",
+      "saveDay": "Salva giornata",
+      "target": "Target",
+      "obtained": "Ottenuti",
+      "colCarb": "Carbo (g)",
+      "colProt": "Pro (g)",
+      "colFat": "Grassi (g)",
+      "colKcal": "kcal",
+      "delta": "Δ (Ottenuti − Target)",
+      "kcalLabelInfo": "kcal etichetta (info)",
+      "kcalLabelDelta": "Δ etichetta − teorico",
+      "kcalLabelInfoDynamic": "kcal etichetta: {labelKcal} ({sign}{delta} vs teoriche)",
+      "mealTotalsLabel": "Totali ottenuti",
+      "strictEqualTag": "Strict: C = P = F",
+      "mealRecalcHint": "Premi \"Ricalcola\" per generare i grammi.",
+      "toleranceLabel": "Tolleranza",
+      "missingMeals": "Pasti senza soluzione: {count}",
+      "totalWithinTol": "Totale entro tolleranza ±{pct}%",
+      "totalOutOfTol": "Fuori tolleranza ±{pct}%",
+      "explainerHtml": "Il riepilogo somma solo i pasti con una <i>soluzione</i> calcolata matematicamente e confronta i totali con i target (per verifiche indicative, non vincolanti).<br><span id=\"labelKcalInfo\" class=\"small labelKcalInfo\"></span>"
+    },
+    "split": {
+      "enableLabel": "Dividi in 2 piatti (Primo + Secondo)",
+      "modePercent": "Percentuale",
+      "modeManual": "Manuale (C/P/F)",
+      "modeAuto": "Auto (secondo fisso)",
+      "slotPrimo": "Primo",
+      "slotSecondo": "Secondo",
+      "sumRowLabel": "Somma Primo+Secondo",
+      "slotRecipeLabel": "Ricetta ({slot})",
+      "slotTargetLabel": "Target {slot}: C {c} / P {p} / F {f} — kcal {kcal}",
+      "manualCLabel": "C (g)",
+      "manualPLabel": "P (g)",
+      "manualFLabel": "F (g)",
+      "strictTag": "Strict: C = P = F"
+    },
+    "days": {
+      "mon": "Lunedì",
+      "tue": "Martedì",
+      "wed": "Mercoledì",
+      "thu": "Giovedì",
+      "fri": "Venerdì",
+      "sat": "Sabato",
+      "sun": "Domenica"
+    },
+    "misc": {
+      "toleranceNote": "Il riepilogo somma solo i pasti con una soluzione calcolata (premi \"Ricalcola\" sui pasti). Tolleranza confronto: ±{pct}% su C/P/F (calorie informative, non vincolanti).",
+      "autoLoadTodayNote": "Se attivo, all'apertura verrà caricato automaticamente il menu di oggi.",
+      "dataSavedLocally": "Dati salvati in locale nel browser (nessun cloud automatico)."
+    },
+    "help": {
+      "button": "Guida",
+      "title": "Guida rapida",
+      "close": "Chiudi",
+      "sections": {
+        "quickStart": {
+          "title": "Primo accesso (30s)",
+          "body": "<ul><li>Imposta i <b>Target</b> (C/P/F) della giornata.</li><li>Aggiungi ricette ai pasti oppure inserisci macro manuali.</li><li>Premi <b>Salva giornata</b> per registrare il menu.</li></ul>"
+        },
+        "targets": {
+          "title": "Target e giornata",
+          "body": "<ul><li>I target guidano il totale giornaliero e i rimanenti.</li><li>Se cambi una ricetta o un ingrediente, i totali si aggiornano.</li></ul>"
+        },
+        "split": {
+          "title": "Split (Primo/Secondo)",
+          "body": "<ul><li>Divide un pasto in due parti mantenendo il totale del pasto.</li><li>Per ogni parte puoi scegliere una ricetta oppure inserire macro manuali.</li><li>Usa il <b>target</b> della parte per bilanciare meglio primo e secondo.</li></ul>"
+        },
+        "recipes": {
+          "title": "Ricette e ingredienti",
+          "body": "<ul><li>Crea ricette con ingredienti e quantità.</li><li>Le ricette possono essere agganciate ai pasti e allo split.</li></ul>"
+        },
+        "shopping": {
+          "title": "Lista spesa",
+          "body": "<ul><li>Genera la lista dai pasti della giornata/periodo.</li><li>Se hai definito le <b>confezioni</b>, puoi stimare i pezzi da comprare.</li></ul>"
+        },
+        "data": {
+          "title": "Peso, storico, export",
+          "body": "<ul><li>Registra il peso per vedere l’andamento.</li><li>Esporta/importa per backup o cambio dispositivo.</li></ul>"
+        }
+      }
+    }
+  }
+}

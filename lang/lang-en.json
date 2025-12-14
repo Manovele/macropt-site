@@ -1,0 +1,441 @@
+{
+  "landing": {
+    "cookie": {
+      "text": "This site uses technical cookies and, only if you consent, Google Analytics 4 to analyse MacroPT Titanium usage in aggregate form. You can read the details in the Privacy Policy.",
+      "privacy_link": "Privacy Policy",
+      "only_tech": "Technical cookies only",
+      "accept_all": "Accept Analytics as well"
+    },
+    "header": {
+      "enter_planner": "Open the planner →"
+    },
+    "hero": {
+      "title": "Serious nutrition planning for people who think in macros.",
+      "subtitle": "MacroPT Titanium lets you set C/P/F targets, create recipes, compose meals, plan the week and generate a professional shopping list.",
+      "badge_macros": "Daily macros + per-meal split",
+      "badge_dynamic_recipes": "Dynamic recipes",
+      "badge_weekly_planner": "Weekly planner",
+      "badge_smart_list": "Smart shopping list",
+      "cta_enter_planner": "Open the planner",
+      "link_how_it_works": "How it works"
+    },
+    "example": {
+      "title": "Example day",
+      "chip_target": "Target 330C / 170P / 70F - 2630 kcal",
+      "col_meal": "Meal",
+      "col_c": "C",
+      "col_p": "P",
+      "col_f": "F",
+      "col_kcal": "kcal",
+      "meal_breakfast": "Breakfast",
+      "meal_lunch": "Lunch",
+      "meal_snack": "Snack",
+      "meal_dinner": "Dinner",
+      "lunch_title": "Example lunch – Pasta with ragù (fit)"
+    },
+    "how": {
+      "title": "How MacroPlanner Titanium works",
+      "subtitle": "It’s not just a calorie counter. It’s a planner built for people who want to manage macros, recipes and their week with precision and consistency.",
+      "step1": {
+        "title": "Set your goals",
+        "text": "Define your daily carbohydrate, protein and fat targets once, and how to distribute them across breakfast, lunch, snack and dinner. Per-meal tolerance included."
+      },
+      "step2": {
+        "title": "Build your recipes",
+        "text": "Create recipes with real ingredients and nutrition values. The planner calculates macros and kcal per serving, so you don’t have to reinvent the numbers every time."
+      },
+      "step3": {
+        "title": "Plan the week",
+        "text": "Assign recipes to the week’s meals, recalculate and immediately see tolerance badges, achieved macros and where you’re off. If something is wrong, you change the recipe or grams, you don’t “hope”."
+      },
+      "step4": {
+        "title": "Generate the shopping list",
+        "text": "With one click you get the full shopping list: ingredients, total grams, grams per pack and number of packs. From planner to trolley, without manual calculations."
+      },
+      "for_whom": {
+        "title": "Who it’s for",
+        "text": "For people who want to know exactly what they’re eating, not “more or less”. Athletes, coaches, anyone following a plan who doesn’t want to redo the math every week."
+      },
+      "not_do": {
+        "title": "What it DOESN’T do",
+        "text": "It’s not a social network, it has no useless notifications and it doesn’t give “magic advice”. It gives you tools, numbers and order. Decisions remain yours."
+      }
+    },
+    "demo": {
+      "title": "A look inside MacroPlanner Titanium",
+      "subtitle": "Three real examples of what you see when using the tool: the balanced meal, the split version and the full recipe.",
+      "card1_label": "Single meal",
+      "card1_title": "A meal already balanced",
+      "card1_text": "Meal name, macros and calories are already aligned with your daily targets. No need to double-check manually: the planner has already done it.",
+      "card2_label": "Split meal",
+      "card2_title": "The same meal, on two plates",
+      "card2_text": "The system takes the same meal and splits it into first and second course, keeping total carbohydrates, proteins, fats and kcal identical.",
+      "card3_label": "Full recipe",
+      "card3_title": "The recipe behind the numbers",
+      "card3_text": "Weighed ingredients, gram quantities and a structure ready to generate the shopping list with the number of packs to buy."
+    },
+    "footer": {
+      "rights": "© MacroPT Titanium – All rights reserved.",
+      "privacy": "Privacy",
+      "terms": "Terms of use",
+      "contact": "Contact"
+    }
+  },
+  "planner": {
+    "meta": {
+      "title": "MacroPT Titanium – Macro & Recipes Planner"
+    },
+    "auth": {
+      "title": "MacroPlanner Titanium",
+      "subtitle": "Log in with email and password to use the planner.",
+      "emailLabel": "Email",
+      "passwordLabel": "Password",
+      "loginButton": "Log in",
+      "signupButton": "Sign up",
+      "statusDisconnected": "Not connected",
+      "statusConnected": "Connected",
+      "statusConnectedAs": "Logged in as {email}",
+      "logoutButton": "Logout",
+      "messages": {
+        "loginMissingFields": "Enter email and password.",
+        "loginInProgress": "Signing in...",
+        "loginFailedGeneric": "Login failed: {message}",
+        "loginUnexpectedError": "Unexpected error during login.",
+        "signupMissingFields": "Enter email and password to sign up.",
+        "signupInProgress": "Creating your account...",
+        "signupFailedGeneric": "Sign up failed: {message}",
+        "signupSuccess": "Sign up successful. Check your email, confirm your address and then log in.",
+        "signupUnexpectedError": "Sign up failed due to an unexpected error."
+      }
+    },
+    "header": {
+      "title": "Macro & Recipes engine",
+      "autoLoadToday": "Auto-load today’s menu",
+      "history": "History",
+      "export": "Export",
+      "import": "Import",
+      "dataUrlLabel": "Data URL",
+      "recipesPlaceholder": "recipes.json",
+      "useButton": "Use",
+      "reloadButton": "Reload"
+    },
+    "dailyTargets": {
+      "title": "Daily targets",
+      "carbs": "Carbs (g)",
+      "protein": "Protein (g)",
+      "fat": "Fats (g)",
+      "kcal": "Total kcal (auto)"
+    },
+    "mealSplit": {
+      "title": "Meal split",
+      "sumNote": "Total must be 100%",
+      "sumLabel": "Sum: {value}%",
+      "sumOk": "ok",
+      "sumMustBe100": "must be 100%",
+      "breakfast": "Breakfast (%)",
+      "lunch": "Lunch (%)",
+      "snack": "Snack (%)",
+      "dinner": "Dinner (%)",
+      "ingredientsInfo": "Grams are for the whole recipe; the solver distributes C/P/F across enabled meals."
+    },
+    "recipes": {
+      "title": "Your recipes",
+      "viewLabel": "View",
+      "viewList": "List",
+      "viewCategories": "Categories",
+      "newRecipeButton": "+ New recipe",
+      "searchPlaceholder": "Search recipes...",
+      "emptyState": "No recipes available.",
+      "emptyForMeal": "No recipes for this meal.",
+      "hintCreateFromTitle": "You can create a new recipe starting from the meal title.",
+      "previewTitle": "Recipe details",
+      "previewEdit": "Edit",
+      "previewClose": "Close",
+      "unnamed": "Untitled",
+      "renameButton": "Rename",
+      "deleteButton": "Delete",
+      "addIngredientButton": "+ Ingredient",
+      "renamePrompt": "New recipe name?",
+      "availableForLabel": "Available for:",
+      "noDescription": "No description provided.",
+      "perMeal": {
+        "addButton": "Add recipe to meal",
+        "addFromLibrary": "Add from library",
+        "configureButton": "Set",
+        "configureHint": "Set default grams and FIXED for this ingredient only in the meals where the recipe is enabled (those selected above).",
+        "mealBreakfast": "Breakfast",
+        "mealLunch": "Lunch",
+        "mealSnack": "Snack",
+        "mealDinner": "Dinner",
+        "removeButton": "Remove",
+        "removeHint": "Removes the recipe only from the current meal, not from the recipes archive.",
+        "fixedGramsPrompt": "\"{ingredient}\" – {meal}: fixed grams (leave empty for no override)",
+        "fixedFlagConfirm": "\"{ingredient}\" – {meal}: mark FIXED? (OK = yes, Cancel = no)",
+        "selectIngredientPlaceholder": "Select ingredient..."
+      },
+      "autoFromLabels": {
+        "descriptionLabel": "Description",
+        "newIngredientLabel": "New ingredient (saved to Library)",
+        "newIngredientNamePlaceholder": "Name",
+        "newIngredientCPlaceholder": "C/100g",
+        "newIngredientPPlaceholder": "P/100g",
+        "newIngredientFPlaceholder": "F/100g",
+        "newIngredientPackPlaceholder": "g/pack",
+        "createAndAddButton": "Create & add",
+        "recalcButton": "Recalculate",
+        "mealToleranceLabel": "Meal tolerance",
+        "useGlobalTolerance": "Use global",
+        "recipePrefix": "Recipe (",
+        "recipePlaceholder": "— Recipe —",
+        "libHeaderIngredient": "Ingredient",
+        "libHeaderC100": "C/100g",
+        "libHeaderP100": "P/100g",
+        "libHeaderF100": "F/100g",
+        "libHeaderPack": "g/pack",
+        "libHeaderDefaultGrams": "Default g",
+        "libHeaderDefaultFixed": "Default fixed",
+        "libHeaderPerMeal": "Per meal",
+        "summaryHeaderIngredient": "Ingredient",
+        "summaryHeaderGrams": "g",
+        "summaryHeaderC": "C",
+        "summaryHeaderP": "P",
+        "summaryHeaderF": "F",
+        "summaryHeaderKcal": "kcal",
+        "summaryHeaderKcalLabel": "label kcal ~",
+        "suggestedHeader": "Suggested ingredients and grams (C/P/F contribution) — {slotLabel}",
+        "noIngredients": "No ingredients (select recipes and recalculate the week).",
+        "showDescriptionTooltip": "Show recipe description",
+        "summaryHeaderFixed": "Fixed",
+        "libHeaderKcal100": "kcal/100g",
+        "libHeaderKcalLabel100": "label kcal/100g"
+      },
+        "photoImport": {
+        "button": "Import from photo",
+        "modalTitle": "Import ingredient from photo",
+        "close": "Close",
+        "subtitle": "Upload a label photo: I’ll prepare a draft, then you confirm.",
+        "pickImage": "Choose photo",
+        "confirm": "Create ingredient",
+        "nameLabel": "Ingredient name",
+        "carbs100": "Carbs (100g)",
+        "protein100": "Protein (100g)",
+        "fat100": "Fat (100g)",
+        "kcalLabel100": "Label kcal (100g)",
+        "noPreview": "(No image selected)",
+        "errGeneric": "Error",
+        "errNoOpenRecipe": "Open a recipe (click its title) before importing an ingredient.",
+        "errMissingName": "Please enter an ingredient name.",
+        "errInvalidMacros": "Enter valid Carbs/Protein/Fat values (per 100g).",
+        "errSumTooHigh": "Unusual macro values: the sum per 100g is too high. Check the label.",
+        "statusReading": "Reading the label…",
+        "warnOcrLowConfidence": "I read the label, but please double-check the values.",
+        "errOcrFailed": "Label reading failed. Please enter macros manually.",
+        "errOcrNoMacros": "I couldn’t read the macros. Please enter them manually."
+       }
+    },
+    "meals": {
+      "title": "Today’s meals",
+      "loadTodayButton": "Load today’s menu",
+      "emptyState": "No meals set for today.",
+      "recipeLabel": "Recipe",
+      "selectRecipePlaceholder": "Select a recipe...",
+      "lock": "Lock",
+      "unlock": "Unlock",
+      "recalc": "Recalculate"
+    },
+    "shopping": {
+      "title": "Weekly shopping list",
+      "subtitle": "Automatically build your shopping list from the week’s meals.",
+      "generateButton": "Generate/update",
+      "exportCsvButton": "Export CSV",
+      "clearButton": "Clear list",
+      "emptyState": "List is empty.",
+      "note": "Ingredient values are per 100 g. Packages are estimated from total grams.",
+      "headerIngredient": "Ingredient",
+      "headerTotal": "Total (g)",
+      "headerPerPack": "(g) per pack",
+      "headerNumPacks": "No. packs (~)",
+      "note1": "Ingredient values on 100 g (C/P/F); kcal = 4C + 4P + 9F.",
+      "note2": "You can set default grams for each ingredient.",
+      "note3": "Strict math solver.",
+      "note4": "Data is saved locally. Import/Export also includes planner and recipe library.",
+      "note5": "Click the recipe title to open/close composition. Ingredient library is reusable.",
+      "csvFilename": "weekly_shopping_list.csv",
+      "csvHeader": "Ingredient,Total (g),Total (kg),Packs (~)"
+    },
+    "week": {
+      "title": "Weekly planner",
+      "solveAll": "Recalculate whole week",
+      "clearAll": "Clear week",
+      "useSameTargets": "Use same daily targets",
+      "summaryHeaders": {
+        "day": "Day",
+        "breakfast": "Breakfast",
+        "lunch": "Lunch",
+        "snack": "Snack",
+        "dinner": "Dinner"
+      }
+    },
+    "history": {
+      "title": "Day history",
+      "subtitle": "Save and review your days with macro targets.",
+      "emptyState": "No saved days.",
+      "saveDaySuccess": "Day saved to history.",
+      "exportCsvButton": "Export CSV",
+      "csvFilename": "days_history.csv",
+      "csvHeader": "Date,C (g),P (g),F (g),Theoretical kcal,Meal kcal,Kcal delta (%),Notes",
+      "clear": "Clear",
+      "close": "Close",
+      "headerDate": "Date",
+      "headerC": "C (g)",
+      "headerP": "P (g)",
+      "headerF": "F (g)",
+      "headerKcalTheoretical": "Theoretical kcal",
+      "headerKcalLabel": "Label kcal",
+      "headerDelta": "Δ label − theoretical",
+      "headerNotes": "Notes"
+    },
+    "weight": {
+      "title": "Weight trend",
+      "subtitle": "Log your weight and track your progress.",
+      "inputLabel": "Weight (kg)",
+      "inputPlaceholder": "e.g. 74.5",
+      "logButton": "Log weight",
+      "exportCsvButton": "Export CSV",
+      "emptyState": "No weight logged yet.",
+      "description": "Values are saved in the planner and included in the JSON Export (key \"pesoLog\"). You can edit or delete each entry in the table.",
+      "invalidInput": "Please enter a valid weight.",
+      "tableDate": "Date",
+      "tableValue": "Weight (kg)",
+      "tableActions": "Actions",
+      "tableEditButton": "Edit",
+      "tableDeleteButton": "Delete",
+      "editPrompt": "New value for {date} (kg):",
+      "chartLabel": "Weight (kg)",
+      "delta7Label": "Δ 7 days: {delta} kg"
+    },
+    "alerts": {
+      "historyEmpty": "History is empty.",
+      "shoppingEmpty": "Shopping list is empty.",
+      "removeIngredientConfirm": "Remove this ingredient from the recipe?",
+      "invalidData": "Invalid data.",
+      "genericError": "An unexpected error occurred.",
+      "splitFixedConfirm": "\"{name}\" – {mealLabel}: mark as fixed grams?",
+      "splitClearFixedConfirm": "\"{name}\" – {mealLabel}: clear fixed grams?",
+      "noMealsEnabledForRecipe": "No meals are enabled for this recipe. Enable at least one meal in the settings.",
+      "remoteJsonInvalid": "Invalid JSON file.",
+      "remoteJsonUseError": "Unable to use the imported JSON.",
+      "remoteJsonDownloadError": "Error while downloading the remote JSON.",
+      "nameRequired": "Please enter a name.",
+      "emptyList": "List is empty.",
+      "fileInvalid": "Invalid file.",
+      "fileReadError": "Unable to read file.",
+      "urlSaved": "URL saved.",
+      "invalidValue": "Invalid value."
+    },
+    "dialogs": {
+      "recipeName": "Recipe name?",
+      "deleteRecipeConfirm": "Delete this recipe?",
+      "clearWeekSelectionsConfirm": "Clear all week selections?",
+      "clearHistoryStorageConfirm": "Permanently clear the history?",
+      "clearHistoryStateConfirm": "Clear the days history?",
+      "deleteWeightEntryConfirm": "Delete the entry for {date}?"
+    },
+    "toasts": {
+      "plannerLoadError": "⚠️ Error loading planner",
+      "plannerUpdateError": "⚠️ Error updating planner",
+      "plannerSaveError": "⚠️ Save error",
+      "plannerUnexpectedSaveError": "⚠️ Unexpected error during save",
+      "weightSaveError": "⚠️ Error saving weight",
+      "weightDeleteError": "⚠️ Error deleting weight",
+      "weightSaved": "⚖️ Weight updated",
+      "weightDeleted": "🗑️ Weight deleted",
+      "noRecipesForSave": "⚠️ Save skipped: no recipe loaded",
+      "syncInProgress": "💾 Saving in progress…",
+      "plannerSaved": "📊 Planner updated",
+      "cloudSaved": "✅ Saved to cloud"
+    },
+    "dailyTotals": {
+      "title": "Daily totals vs targets",
+      "saveDay": "Save day",
+      "target": "Target",
+      "obtained": "Obtained",
+      "colCarb": "Carbs (g)",
+      "colProt": "Protein (g)",
+      "colFat": "Fats (g)",
+      "colKcal": "kcal",
+      "delta": "Δ (Obtained − Target)",
+      "kcalLabelInfo": "Label kcal (info)",
+      "kcalLabelDelta": "Δ label − theoretical",
+      "kcalLabelInfoDynamic": "Label kcal: {labelKcal} ({sign}{delta} vs theoretical)",
+      "toleranceLabel": "Tolerance",
+      "missingMeals": "Meals without solution: {count}",
+      "totalWithinTol": "Within tolerance ±{pct}%",
+      "totalOutOfTol": "Out of tolerance ±{pct}%",
+      "explainerHtml": "The summary only includes meals with a mathematical <i>solution</i> and compares totals to targets (for indicative, non-binding checks).<br><span id=\"labelKcalInfo\" class=\"small labelKcalInfo\"></span>",
+      "mealTotalsLabel": "Obtained totals",
+      "strictEqualTag": "Strict: C = P = F",
+      "mealRecalcHint": "Press \"Recalculate\" to generate grams."
+    },
+    "split": {
+      "enableLabel": "Split into 2 plates (First + Second)",
+      "modePercent": "Percent",
+      "modeManual": "Manual (C/P/F)",
+      "modeAuto": "Auto (fixed second course)",
+      "slotPrimo": "First",
+      "slotSecondo": "Second",
+      "sumRowLabel": "Sum First+Second",
+      "slotRecipeLabel": "Recipe ({slot})",
+      "slotTargetLabel": "Target {slot}: C {c} / P {p} / F {f} — kcal {kcal}",
+      "manualCLabel": "C (g)",
+      "manualPLabel": "P (g)",
+      "manualFLabel": "F (g)",
+      "strictTag": "Strict: C = P = F"
+    },
+    "days": {
+      "mon": "Monday",
+      "tue": "Tuesday",
+      "wed": "Wednesday",
+      "thu": "Thursday",
+      "fri": "Friday",
+      "sat": "Saturday",
+      "sun": "Sunday"
+    },
+    "misc": {
+      "toleranceNote": "The summary only includes meals with a calculated solution (hit \"Recalculate\" on meals). Tolerance: ±{pct}% on C/P/F (kcal are informational, not strict).",
+      "autoLoadTodayNote": "When enabled, today’s menu is automatically loaded on open.",
+      "dataSavedLocally": "Data is saved locally in your browser (no automatic cloud backup)."
+    },
+    "help": {
+      "button": "Help",
+      "title": "Quick guide",
+      "close": "Close",
+      "sections": {
+        "quickStart": {
+          "title": "First run (30s)",
+          "body": "<ul><li>Set your daily <b>Targets</b> (C/P/F).</li><li>Add recipes to meals or enter manual macros.</li><li>Press <b>Save day</b> to store your menu.</li></ul>"
+        },
+        "targets": {
+          "title": "Targets and day",
+          "body": "<ul><li>Targets drive your daily totals and remaining macros.</li><li>When you edit a recipe/ingredient, totals update automatically.</li></ul>"
+        },
+        "split": {
+          "title": "Split (First/Second)",
+          "body": "<ul><li>Splits a meal into two parts while keeping the meal total consistent.</li><li>Each part can use a recipe or manual macros.</li><li>Use the part <b>target</b> to balance first and second course.</li></ul>"
+        },
+        "recipes": {
+          "title": "Recipes and ingredients",
+          "body": "<ul><li>Create recipes with ingredients and quantities.</li><li>Recipes can be attached to meals and to Split.</li></ul>"
+        },
+        "shopping": {
+          "title": "Shopping list",
+          "body": "<ul><li>Generate the list from your saved days/meals.</li><li>If you set <b>pack sizes</b>, you can estimate how many packs to buy.</li></ul>"
+        },
+        "data": {
+          "title": "Weight, history, export",
+          "body": "<ul><li>Log weight to track the trend.</li><li>Export/import for backups or device changes.</li></ul>"
+        }
+      }
+    }
+  }
+}
