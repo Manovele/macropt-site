@@ -3636,27 +3636,33 @@ function photoImportApplyOcrResult(data){
     if (e.target === backdrop) closePhotoImportModal();
   });
 
-    const f = e.target.files && e.target.files[0];
-    if (!f) return;
+if (inp) inp.addEventListener("change", function(e){
+  const f = e.target.files && e.target.files[0];
+  if (!f) return;
 
-    const img = document.getElementById("photoImportPreview");
-    const no  = document.getElementById("photoImportNoPreview");
-    const url = URL.createObjectURL(f);
+  const img = document.getElementById("photoImportPreview");
+  const no  = document.getElementById("photoImportNoPreview");
+  const url = URL.createObjectURL(f);
 
-    if (img){
-      img.src = url;
-      img.style.display = "block";
-      img.onload = ()=> URL.revokeObjectURL(url);
-    }
-    if (no) no.style.display = "none";
+  if (img){
+    img.src = url;
+    img.style.display = "block";
+    img.onload = ()=> URL.revokeObjectURL(url);
+  }
+  if (no) no.style.display = "none";
 
-    // OCR (API): precompila i campi
-    photoImportOcrFromApi(f)
-      .then(photoImportApplyOcrResult)
-      .catch((err)=>{
-        console.warn(err);
-        photoImportSetMsg("err", "recipes.photoImport.errOcrFailed", "OCR failed. Please enter macros manually.");
-      });
+  photoImportOcrFromApi(f)
+    .then(photoImportApplyOcrResult)
+    .catch(err=>{
+      console.warn(err);
+      photoImportSetMsg(
+        "err",
+        "recipes.photoImport.errOcrFailed",
+        "OCR failed. Please enter macros manually."
+      );
+    });
+});
+
 
   const confirmBtn = document.getElementById("photoImportConfirmBtn");
   if (confirmBtn) confirmBtn.addEventListener("click", function(){
@@ -3755,11 +3761,11 @@ if (tolInput){
   function dateToDayKey(d){ const wd = d.getDay(); return ['sun','mon','tue','wed','thu','fri','sat'][wd]; }
   function dayKeyToLabel(k){ return t("days." + k) || k; }
   function formatISO(d){ const z = (n)=> String(n).padStart(2,'0'); return `${d.getFullYear()}-${z(d.getMonth()+1)}-${z(d.getDate())}`; }
-  let selectedDate = new Date();
-  let selectedDayKey = dateToDayKey(selectedDate);
+  var selectedDate = new Date();
+  var selectedDayKey = dateToDayKey(selectedDate);
   function setSelectedDate(d){ selectedDate = d; selectedDayKey = dateToDayKey(d); const dayPicker = document.getElementById('dayPicker'); const dayLabel = document.getElementById('dayLabel'); if (dayPicker) dayPicker.value = formatISO(d); if (dayLabel) dayLabel.textContent = `${dayKeyToLabel(selectedDayKey)}`; }
 function syncMealsFromPlanner(){
-  const day = selectedDayKey;
+  const day = (typeof selectedDayKey !== "undefined" && selectedDayKey) ? selectedDayKey : "mon";
   ['breakfast','lunch','snack','dinner'].forEach(k=>{
     const dayState = ensureWeekPlanDay(day);
     const cell = dayState[k] || { recipeId: null, solution: null };
