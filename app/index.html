@@ -3626,21 +3626,64 @@ console.log("[OCR DEBUG] per100:", data?.per100, "confidence:", data?.confidence
 
 (function wirePhotoImport(){
   const btnTop  = document.getElementById("photoImportBtn");
-  const inp     = document.getElementById("photoImportInput");
   const btnPick = document.getElementById("photoImportPickBtn");
   const btnClose= document.getElementById("photoImportCloseBtn");
   const backdrop= document.getElementById("photoImportModal");
 
+  function ensureInputBound(){
+    const inp = document.getElementById("photoImportInput");
+    if (!inp) return null;
+
+    // evita doppio binding se l’utente clicca più volte
+    if (!inp.dataset.mptBound){
+      inp.dataset.mptBound = "1";
+
+      inp.addEventListener("change", function(e){
+        const f = e.target.files && e.target.files[0];
+        if (!f) return;
+
+        const img = document.getElementById("photoImportPreview");
+        const no  = document.getElementById("photoImportNoPreview");
+        const url = URL.createObjectURL(f);
+
+        if (img){
+          img.src = url;
+          img.style.display = "block";
+          img.onload = ()=> URL.revokeObjectURL(url);
+        }
+        if (no) no.style.display = "none";
+
+        photoImportOcrFromApi(f)
+          .then(photoImportApplyOcrResult)
+          .catch(err=>{
+            console.warn(err);
+            photoImportSetMsg(
+              "err",
+              "recipes.photoImport.errOcrFailed",
+              "OCR failed. Please enter macros manually."
+            );
+          });
+      });
+    }
+
+    return inp;
+  }
+
+  function triggerPick(){
+    const inp = ensureInputBound();
+    if (inp){ inp.value=""; inp.click(); }
+  }
+
   if (btnTop) btnTop.addEventListener("click", function(){
     resetPhotoImportForm();
     openPhotoImportModal();
-    if (inp){ inp.value=""; inp.click(); }
+    triggerPick();
   });
 
   if (btnPick) btnPick.addEventListener("click", function(){
     resetPhotoImportForm();
     openPhotoImportModal();
-    if (inp){ inp.value=""; inp.click(); }
+    triggerPick();
   });
 
   if (btnClose) btnClose.addEventListener("click", closePhotoImportModal);
@@ -3648,34 +3691,6 @@ console.log("[OCR DEBUG] per100:", data?.per100, "confidence:", data?.confidence
   if (backdrop) backdrop.addEventListener("click", function(e){
     if (e.target === backdrop) closePhotoImportModal();
   });
-
-if (inp) inp.addEventListener("change", function(e){
-  const f = e.target.files && e.target.files[0];
-  if (!f) return;
-
-  const img = document.getElementById("photoImportPreview");
-  const no  = document.getElementById("photoImportNoPreview");
-  const url = URL.createObjectURL(f);
-
-  if (img){
-    img.src = url;
-    img.style.display = "block";
-    img.onload = ()=> URL.revokeObjectURL(url);
-  }
-  if (no) no.style.display = "none";
-
-  photoImportOcrFromApi(f)
-    .then(photoImportApplyOcrResult)
-    .catch(err=>{
-      console.warn(err);
-      photoImportSetMsg(
-        "err",
-        "recipes.photoImport.errOcrFailed",
-        "OCR failed. Please enter macros manually."
-      );
-    });
-});
-
 
   const confirmBtn = document.getElementById("photoImportConfirmBtn");
   if (confirmBtn) confirmBtn.addEventListener("click", function(){
