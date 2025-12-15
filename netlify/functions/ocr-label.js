@@ -26,7 +26,6 @@ exports.handler = async (event) => {
 
     const base64 = m[2];
 
-    // Google Vision TEXT_DETECTION
     const visionResp = await fetch(
       "https://vision.googleapis.com/v1/images:annotate?key=" + encodeURIComponent(apiKey),
       {
@@ -60,32 +59,39 @@ exports.handler = async (event) => {
       "";
 
     // -----------------------------
-    // PARSE MACROS (robusto)
+    // PARSE
     // -----------------------------
-    const normRaw = rawText || "";
-    const norm = normRaw
+    const raw = String(rawText || "");
+    const norm = raw
       .replace(/\r/g, "")
       .replace(/\t/g, " ")
       .replace(/[ ]+/g, " ")
       .toLowerCase();
 
-    // isolamento "per 100 g" (finestra ampia)
-    let section = norm;
-    const idx = norm.search(/per\s*100\s*g|per\s*100\s*gr|per\s*100\s*ml|per\s*100\s*m[l1]/);
-    if (idx >= 0) section = norm.slice(idx, idx + 1400);
-
-    // linee originali (non solo section) perché OCR a volte mette "per 100g" in mezzo
-    const linesAll = normRaw
+    // righe OCR (molto importanti per le tabelle)
+    const linesAll = raw
       .split("\n")
       .map(s => s.trim().toLowerCase())
       .filter(Boolean);
 
-    // linee della section (se trovata), altrimenti tutte
-    const lines = (idx >= 0 ? section.split("\n") : linesAll)
-      .map(s => String(s).trim().toLowerCase())
-      .filter(Boolean);
+    // prova a isolare la sezione per 100g (se c'è)
+    let sectionText = norm;
+    let sectionLines = linesAll;
 
-    const flatSection = section.replace(/\s+/g, " ");
+    const idx = norm.search(/per\s*100\s*g|per\s*100\s*gr|per\s*100\s*ml|per\s*100\s*m[l1]/);
+    if (idx >= 0) {
+      sectionText = norm.slice(idx, idx + 1600);
+      sectionLines = sectionText
+        .split("\n")
+        .map(s => String(s).trim().toLowerCase())
+        .filter(Boolean);
+
+      // se lo split su \n non produce quasi nulla (perché sectionText è "flat"),
+      // ricadiamo su linesAll (più affidabile)
+      if (sectionLines.length < 4) sectionLines = linesAll;
+    }
+
+    const flatSection = sectionText.replace(/\s+/g, " ");
     const flatNorm = norm.replace(/\s+/g, " ");
 
     const toNum = (s) => {
@@ -95,47 +101,57 @@ exports.handler = async (event) => {
       return Number.isFinite(v) ? v : null;
     };
 
-    // regole anti-fregatura (sotto-voci)
-    const isSubRow = (ln) => {
-      // "di cui ..." / "of which ..." / simili
-      return /\bdi\s*cui\b|\bof\s*which\b/.test(ln);
-    };
+    const isEnergyLine = (ln) => /\bkcal\b|\bkj\b/.test(ln);
+    const isSubRow = (ln) => /\bdi\s*cui\b|\bof\s*which\b/.test(ln);
 
-    // Cerca valore macro con 3 strategie:
-    // 1) stessa riga
-    // 2) entro 160 caratteri (anche con separazioni strane)
-    // 3) riga successiva (caso tabellare OCR)
-    const findValue = (labelRegex, opts = {}) => {
-      const avoidIf = opts.avoidIf || null; // regex che se presente nella riga, la salta (es. zuccheri, saturi)
+    // core finder: cerca il numero del macro vicino alla label,
+    // ma se trova righe kcal/kj le SALTA (così "Grassi -> 68.0 kcal -> 0.3 g" funziona).
+    const findMacro = (labelRe, opts = {}) => {
+      const avoidIf = opts.avoidIf || null;
 
-      // 1) stesso rigo
-      const re1 = new RegExp(`${labelRegex.source}\\s*[:]?\\s*(\\d+(?:[.,]\\d+)?)`, "i");
-      let mm = flatSection.match(re1) || flatNorm.match(re1);
-      if (mm) return toNum(mm[1]);
+      // 1) stessa riga (flat)
+      {
+        const re1 = new RegExp(`${labelRe.source}\\s*[:]?\\s*(\\d+(?:[.,]\\d+)?)`, "i");
+        const mm = flatSection.match(re1) || flatNorm.match(re1);
+        if (mm) return toNum(mm[1]);
+      }
 
-      // 2) vicino (più ampio)
-      const re2 = new RegExp(`${labelRegex.source}[\\s\\S]{0,160}?(\\d+(?:[.,]\\d+)?)`, "i");
-      mm = section.match(re2) || norm.match(re2);
-      if (mm) return toNum(mm[1]);
+      // 2) vicino in testo (ampio)
+      {
+        const re2 = new RegExp(`${labelRe.source}[\\s\\S]{0,200}?(\\d+(?:[.,]\\d+)?)`, "i");
+        const mm = sectionText.match(re2) || norm.match(re2);
+        if (mm) {
+          // ATTENZIONE: questo può beccare numeri non desiderati, perciò lo usiamo solo come fallback.
+          const v = toNum(mm[1]);
+          if (v !== null) return v;
+        }
+      }
 
-      // 3) riga-per-riga + riga successiva
+      // 3) riga + righe successive (robusto per tabelle)
+      const lines = sectionLines && sectionLines.length ? sectionLines : linesAll;
+
       for (let i = 0; i < lines.length; i++) {
         const ln = lines[i];
 
-        if (isSubRow(ln)) continue; // non partire mai da una sotto-voce
+        if (isSubRow(ln)) continue;
         if (avoidIf && avoidIf.test(ln)) continue;
 
-        if (labelRegex.test(ln)) {
-          // se numero è già sulla riga
+        if (labelRe.test(ln)) {
+          // se numero sulla stessa riga
           const v1 = toNum(ln);
           if (v1 !== null) return v1;
 
-          // altrimenti prova le prossime 2 righe (OCR a volte inserisce righe vuote o unità)
-          for (let j = 1; j <= 2; j++) {
+          // guarda le prossime 6 righe, saltando energia e fermandoti su sotto-voce
+          for (let j = 1; j <= 6; j++) {
             if (i + j >= lines.length) break;
             const ln2 = lines[i + j];
-            if (isSubRow(ln2)) break; // se finisci dentro "di cui", fermati
+
+            if (isSubRow(ln2)) break;
             if (avoidIf && avoidIf.test(ln2)) break;
+
+            // SKIP energia
+            if (isEnergyLine(ln2)) continue;
+
             const v2 = toNum(ln2);
             if (v2 !== null) return v2;
           }
@@ -145,23 +161,42 @@ exports.handler = async (event) => {
       return null;
     };
 
-    // Macro (IT/EN)
-    // Nota: per carbo/grassi evitiamo di prenderci "zuccheri" o "saturi"
-    const c = findValue(/carboidrati|carbohydrates|carbs/, { avoidIf: /zuccheri|sugars/ });
-    const p = findValue(/proteine|protein/);
-    const f = findValue(/grassi|fat/, { avoidIf: /saturi|saturated/ });
+    // Macro: evita zuccheri/saturi
+    const c = findMacro(/carboidrati|carbohydrates|carbs/i, { avoidIf: /zuccheri|sugars/i });
+    const p = findMacro(/proteine|protein/i);
+    const f = findMacro(/grassi|fat/i, { avoidIf: /saturi|saturated/i });
 
-    // kcal (molti OCR la spezzano in "Energia kcal" + "68.0 kcal")
-    let kcal = findValue(/kcal/);
-    if (kcal === null) {
-      // fallback: trova "energia" vicino a "kcal"
+    // kcal: cercala in modo dedicato (energia kcal spesso è spezzata)
+    let kcal = null;
+
+    // 1) stessa riga o vicino (flat)
+    {
+      const reK = /\bkcal\b/i;
+      // prova su linee: prendi il primo numero di una riga che contiene kcal e (idealmente) energia
       for (let i = 0; i < linesAll.length; i++) {
         const ln = linesAll[i];
-        if (ln.includes("energia") && ln.includes("kcal")) {
-          const v1 = toNum(ln);
-          if (v1 !== null) { kcal = v1; break; }
+        if (reK.test(ln)) {
+          // preferisci riga con "energia"
+          if (ln.includes("energia")) {
+            const v = toNum(ln);
+            if (v !== null) { kcal = v; break; }
+            // oppure numero sulla riga dopo
+            if (i + 1 < linesAll.length) {
+              const v2 = toNum(linesAll[i + 1]);
+              if (v2 !== null) { kcal = v2; break; }
+            }
+          }
+        }
+      }
+    }
 
-          // prova riga successiva
+    // 2) fallback: prima riga con "kcal" che abbia un numero, o numero subito dopo
+    if (kcal === null) {
+      for (let i = 0; i < linesAll.length; i++) {
+        const ln = linesAll[i];
+        if (ln.includes("kcal")) {
+          const v = toNum(ln);
+          if (v !== null) { kcal = v; break; }
           if (i + 1 < linesAll.length) {
             const v2 = toNum(linesAll[i + 1]);
             if (v2 !== null) { kcal = v2; break; }
@@ -179,8 +214,7 @@ exports.handler = async (event) => {
     const found = ["c", "p", "f"].filter(k => per100[k] !== undefined).length;
     const confidence = (found === 3 ? 0.9 : (found === 2 ? 0.6 : 0.3)) + (per100.kcalLabel !== undefined ? 0.05 : 0);
 
-    // nameGuess: prima riga utile (non "valori nutrizionali")
-    const nameGuess = rawText
+    const nameGuess = raw
       .split("\n")
       .map(s => s.trim())
       .find(s => s.length >= 3 && !/^valori nutrizionali$/i.test(s)) || "";
@@ -189,10 +223,11 @@ exports.handler = async (event) => {
       statusCode: 200,
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
+        parserVersion: "v4-skip-energy-lines",
         nameGuess,
         per100: found ? per100 : null,
         confidence,
-        rawText: rawText.slice(0, 4000)
+        rawText: raw.slice(0, 4000)
       })
     };
 
