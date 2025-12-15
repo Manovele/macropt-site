@@ -16,7 +16,7 @@ exports.handler = async (event) => {
     if (!image || !image.startsWith("data:image")) {
       return {
         statusCode: 400,
-        body: JSON.stringify({ error: "Invalid image data" })
+        body: JSON.stringify({ error: "Invalid image" })
       };
     }
 
@@ -36,28 +36,32 @@ exports.handler = async (event) => {
       }
     );
 
+    if (!visionResp.ok) {
+      const txt = await visionResp.text();
+      return {
+        statusCode: 502,
+        body: JSON.stringify({ error: txt })
+      };
+    }
+
     const visionJson = await visionResp.json();
     const rawText =
       visionJson?.responses?.[0]?.fullTextAnnotation?.text || "";
-
-    // -------- PARSER VERO (riga + riga sotto) --------
 
     const lines = rawText
       .split("\n")
       .map(l => l.trim().toLowerCase())
       .filter(Boolean);
 
-    const readValueAfter = (labelRegex) => {
+    const readAfterLabel = (label, { skipEnergy = false } = {}) => {
       for (let i = 0; i < lines.length; i++) {
-        if (labelRegex.test(lines[i])) {
-          // numero sulla riga stessa
-          const inline = lines[i].match(/(\d+(?:[.,]\d+)?)/);
-          if (inline) return parseFloat(inline[1].replace(",", "."));
-
-          // numero sulla riga sotto
-          if (lines[i + 1]) {
-            const below = lines[i + 1].match(/(\d+(?:[.,]\d+)?)/);
-            if (below) return parseFloat(below[1].replace(",", "."));
+        if (lines[i].includes(label)) {
+          for (let j = i + 1; j <= i + 3; j++) {
+            const l = lines[j];
+            if (!l) continue;
+            if (skipEnergy && (l.includes("kcal") || l.includes("kj") || l.includes("energia"))) continue;
+            const m = l.match(/(\d+(?:[.,]\d+)?)/);
+            if (m) return parseFloat(m[1].replace(",", "."));
           }
         }
       }
@@ -65,21 +69,19 @@ exports.handler = async (event) => {
     };
 
     const per100 = {
-      c: readValueAfter(/carboidrati|carbohydrates/),
-      p: readValueAfter(/proteine|protein/),
-      f: readValueAfter(/grassi|fat/),
-      kcalLabel: readValueAfter(/energia.*kcal|kcal/)
+      c: readAfterLabel("carboidrati", { skipEnergy: true }),
+      p: readAfterLabel("proteine", { skipEnergy: true }),
+      f: readAfterLabel("grassi", { skipEnergy: true }),
+      kcalLabel: readAfterLabel("kcal")
     };
 
-    const found = ["c","p","f"].filter(k => typeof per100[k] === "number").length;
+    const found = ["c", "p", "f"].filter(k => per100[k] != null).length;
 
     return {
       statusCode: 200,
-      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        parserVersion: "v5-line-below-fix",
-        per100: found >= 2 ? per100 : null,
-        confidence: found === 3 ? 0.95 : found === 2 ? 0.7 : 0.3,
+        per100: found ? per100 : null,
+        confidence: found === 3 ? 0.95 : 0.4,
         rawText
       })
     };
@@ -87,7 +89,7 @@ exports.handler = async (event) => {
   } catch (e) {
     return {
       statusCode: 500,
-      body: JSON.stringify({ error: String(e.message || e) })
+      body: JSON.stringify({ error: String(e) })
     };
   }
 };
