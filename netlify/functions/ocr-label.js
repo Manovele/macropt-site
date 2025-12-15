@@ -1,25 +1,30 @@
-export default async (req) => {
+exports.handler = async (event) => {
   try {
-    if (req.method !== "POST") {
-      return new Response("Method Not Allowed", { status: 405 });
+    if (event.httpMethod !== "POST") {
+      return { statusCode: 405, body: "Method Not Allowed" };
     }
+
 
     const apiKey = process.env.GOOGLE_VISION_API_KEY;
     if (!apiKey) {
-      return new Response(JSON.stringify({ error: "Missing GOOGLE_VISION_API_KEY" }), {
-        status: 500,
-        headers: { "Content-Type": "application/json" }
-      });
+      return {
+        statusCode: 500,
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ error: "Missing GOOGLE_VISION_API_KEY" })
+      };
+
     }
 
-    const body = await req.json();
+    const body = JSON.parse(event.body || "{}");
     const dataUrl = String(body?.image || "");
     const m = dataUrl.match(/^data:(image\/[a-zA-Z0-9.+-]+);base64,(.+)$/);
     if (!m) {
-      return new Response(JSON.stringify({ error: "Invalid image data URL" }), {
-        status: 400,
-        headers: { "Content-Type": "application/json" }
-      });
+      return {
+        statusCode: 400,
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ error: "Invalid image data URL" })
+      };
+
     }
 
     const base64 = m[2];
@@ -41,10 +46,12 @@ export default async (req) => {
 
     if (!visionResp.ok) {
       const txt = await visionResp.text().catch(()=> "");
-      return new Response(JSON.stringify({ error: "Vision HTTP " + visionResp.status, detail: txt.slice(0, 500) }), {
-        status: 502,
-        headers: { "Content-Type": "application/json" }
-      });
+      return {
+        statusCode: 502,
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ error: "Vision HTTP " + visionResp.status, detail: txt.slice(0, 500) })
+      };
+
     }
 
     const visionJson = await visionResp.json();
@@ -73,7 +80,7 @@ export default async (req) => {
     };
 
     const findNear = (labelRegex) => {
-      const re = new RegExp(labelRegex.source + r".{0,40}(\d+(?:[.,]\d+)?)", "i");
+      const re = new RegExp(labelRegex.source + ".{0,40}(\\d+(?:[.,]\\d+)?)", "i");
       const mm = section.match(re) || norm.match(re);
       if (!mm) return null;
       const v = parseFloat(String(mm[1]).replace(",", "."));
@@ -99,19 +106,23 @@ export default async (req) => {
     // nameGuess: prima riga non vuota
     const nameGuess = rawText.split("\n").map(s => s.trim()).find(s => s.length >= 3) || "";
 
-    return new Response(
-      JSON.stringify({
-        nameGuess,
-        per100: found ? per100 : null,
-        confidence,
-        rawText: rawText.slice(0, 4000)
-      }),
-      { status: 200, headers: { "Content-Type": "application/json" } }
-    );
+    return {
+      statusCode: 200,
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+      nameGuess,
+      per100: found ? per100 : null,
+      confidence,
+      rawText: rawText.slice(0, 4000)
+    })
+   };
+
   } catch (e) {
-    return new Response(JSON.stringify({ error: String(e?.message || e) }), {
-      status: 500,
-      headers: { "Content-Type": "application/json" }
-    });
+    return {
+      statusCode: 500,
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ error: String(e?.message || e) })
+    };
+
   }
 };
