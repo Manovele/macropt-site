@@ -302,6 +302,15 @@ header .btn-outline.utility:hover{
     box-shadow: 0 4px 14px rgba(0,0,0,0.3);
     transition: opacity 0.3s ease;
   }
+
+.recipes-stickybar{
+  position: sticky;
+  top: 64px;              /* se il tuo header è più alto, alza questo numero */
+  background: var(--card);
+  padding: 8px 0;
+  z-index: 20;
+}
+
 </style>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.48.0/dist/umd/supabase.min.js"></script>
 </head>
@@ -502,22 +511,24 @@ header .btn-outline.utility:hover{
            + Nuova ricetta
         </button>
 
-<button type="button"
-        class="btn-outline"
-        id="photoImportBtn"
-        data-i18n="recipes.photoImport.button">
-  Import from photo
-</button>
-
-<input id="photoImportInput"
-       type="file"
-       accept="image/*"
-       capture="environment"
-       style="display:none" />
-
-
       </div>
     </div>
+
+<!-- Sticky bar: resta visibile mentre scrolli la pagina -->
+<div class="recipes-stickybar">
+  <button type="button"
+          class="btn-outline"
+          id="photoImportBtn"
+          data-i18n="recipes.photoImport.button">
+    Import from photo
+  </button>
+
+  <input id="photoImportInput"
+         type="file"
+         accept="image/*"
+         capture="environment"
+         style="display:none" />
+</div>
 
     <div id="recipesList"></div>
   </div>
