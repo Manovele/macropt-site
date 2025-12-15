@@ -3599,6 +3599,10 @@ function photoImportApplyOcrResult(data){
 
   if (nameEl && !nameEl.value && data && data.nameGuess) nameEl.value = data.nameGuess;
 
+console.log("[OCR DEBUG] rawText:", data?.rawText);
+console.log("[OCR DEBUG] per100:", data?.per100, "confidence:", data?.confidence);
+
+
   if (per100){
     if (cEl && Number.isFinite(per100.c)) cEl.value = String(per100.c);
     if (pEl && Number.isFinite(per100.p)) pEl.value = String(per100.p);
