@@ -60,7 +60,7 @@ exports.handler = async (event) => {
       "";
 
     // -----------------------------
-    // PARSE MACROS (più robusto)
+    // PARSE MACROS (robusto)
     // -----------------------------
     const normRaw = rawText || "";
     const norm = normRaw
@@ -69,17 +69,24 @@ exports.handler = async (event) => {
       .replace(/[ ]+/g, " ")
       .toLowerCase();
 
-    // prova a isolare la sezione "per 100 g" (aumentiamo la finestra)
+    // isolamento "per 100 g" (finestra ampia)
     let section = norm;
     const idx = norm.search(/per\s*100\s*g|per\s*100\s*gr|per\s*100\s*ml|per\s*100\s*m[l1]/);
-    if (idx >= 0) section = norm.slice(idx, idx + 1200);
+    if (idx >= 0) section = norm.slice(idx, idx + 1400);
 
-    const flatSection = section.replace(/\s+/g, " ");
-    const flatNorm = norm.replace(/\s+/g, " ");
-    const lines = normRaw
+    // linee originali (non solo section) perché OCR a volte mette "per 100g" in mezzo
+    const linesAll = normRaw
       .split("\n")
       .map(s => s.trim().toLowerCase())
       .filter(Boolean);
+
+    // linee della section (se trovata), altrimenti tutte
+    const lines = (idx >= 0 ? section.split("\n") : linesAll)
+      .map(s => String(s).trim().toLowerCase())
+      .filter(Boolean);
+
+    const flatSection = section.replace(/\s+/g, " ");
+    const flatNorm = norm.replace(/\s+/g, " ");
 
     const toNum = (s) => {
       const mm = String(s || "").match(/(\d+(?:[.,]\d+)?)/);
@@ -88,27 +95,48 @@ exports.handler = async (event) => {
       return Number.isFinite(v) ? v : null;
     };
 
-    const findValue = (labelRegex) => {
-      // 1) stesso rigo: "carboidrati 15,4" o "carboidrati: 15,4 g"
+    // regole anti-fregatura (sotto-voci)
+    const isSubRow = (ln) => {
+      // "di cui ..." / "of which ..." / simili
+      return /\bdi\s*cui\b|\bof\s*which\b/.test(ln);
+    };
+
+    // Cerca valore macro con 3 strategie:
+    // 1) stessa riga
+    // 2) entro 160 caratteri (anche con separazioni strane)
+    // 3) riga successiva (caso tabellare OCR)
+    const findValue = (labelRegex, opts = {}) => {
+      const avoidIf = opts.avoidIf || null; // regex che se presente nella riga, la salta (es. zuccheri, saturi)
+
+      // 1) stesso rigo
       const re1 = new RegExp(`${labelRegex.source}\\s*[:]?\\s*(\\d+(?:[.,]\\d+)?)`, "i");
       let mm = flatSection.match(re1) || flatNorm.match(re1);
       if (mm) return toNum(mm[1]);
 
-      // 2) tabellare/colonne: label ... valore entro 120 char
-      const re2 = new RegExp(`${labelRegex.source}[\\s\\S]{0,120}?(\\d+(?:[.,]\\d+)?)`, "i");
+      // 2) vicino (più ampio)
+      const re2 = new RegExp(`${labelRegex.source}[\\s\\S]{0,160}?(\\d+(?:[.,]\\d+)?)`, "i");
       mm = section.match(re2) || norm.match(re2);
       if (mm) return toNum(mm[1]);
 
-      // 3) riga-per-riga: OCR che spezza colonne
+      // 3) riga-per-riga + riga successiva
       for (let i = 0; i < lines.length; i++) {
         const ln = lines[i];
+
+        if (isSubRow(ln)) continue; // non partire mai da una sotto-voce
+        if (avoidIf && avoidIf.test(ln)) continue;
+
         if (labelRegex.test(ln)) {
+          // se numero è già sulla riga
           const v1 = toNum(ln);
           if (v1 !== null) return v1;
 
-          // a volte il numero è sulla riga dopo
-          if (i + 1 < lines.length) {
-            const v2 = toNum(lines[i + 1]);
+          // altrimenti prova le prossime 2 righe (OCR a volte inserisce righe vuote o unità)
+          for (let j = 1; j <= 2; j++) {
+            if (i + j >= lines.length) break;
+            const ln2 = lines[i + j];
+            if (isSubRow(ln2)) break; // se finisci dentro "di cui", fermati
+            if (avoidIf && avoidIf.test(ln2)) break;
+            const v2 = toNum(ln2);
             if (v2 !== null) return v2;
           }
         }
@@ -117,18 +145,27 @@ exports.handler = async (event) => {
       return null;
     };
 
-    // keyword IT/EN (puoi estendere con FR/DE se vuoi)
-    const c = findValue(/carboidrati|carbohydrates|carbs/);
+    // Macro (IT/EN)
+    // Nota: per carbo/grassi evitiamo di prenderci "zuccheri" o "saturi"
+    const c = findValue(/carboidrati|carbohydrates|carbs/, { avoidIf: /zuccheri|sugars/ });
     const p = findValue(/proteine|protein/);
-    const f = findValue(/grassi|fat/);
+    const f = findValue(/grassi|fat/, { avoidIf: /saturi|saturated/ });
 
-    // kcal: spesso è "energia kcal 68" o "energia 68 kcal"
+    // kcal (molti OCR la spezzano in "Energia kcal" + "68.0 kcal")
     let kcal = findValue(/kcal/);
     if (kcal === null) {
-      for (const ln of lines) {
+      // fallback: trova "energia" vicino a "kcal"
+      for (let i = 0; i < linesAll.length; i++) {
+        const ln = linesAll[i];
         if (ln.includes("energia") && ln.includes("kcal")) {
-          const v = toNum(ln);
-          if (v !== null) { kcal = v; break; }
+          const v1 = toNum(ln);
+          if (v1 !== null) { kcal = v1; break; }
+
+          // prova riga successiva
+          if (i + 1 < linesAll.length) {
+            const v2 = toNum(linesAll[i + 1]);
+            if (v2 !== null) { kcal = v2; break; }
+          }
         }
       }
     }
@@ -139,11 +176,10 @@ exports.handler = async (event) => {
     if (f !== null) per100.f = f;
     if (kcal !== null) per100.kcalLabel = kcal;
 
-    // confidence grezza: quante metriche ho trovato
     const found = ["c", "p", "f"].filter(k => per100[k] !== undefined).length;
     const confidence = (found === 3 ? 0.9 : (found === 2 ? 0.6 : 0.3)) + (per100.kcalLabel !== undefined ? 0.05 : 0);
 
-    // nameGuess: prima riga non vuota (ma ignora "valori nutrizionali")
+    // nameGuess: prima riga utile (non "valori nutrizionali")
     const nameGuess = rawText
       .split("\n")
       .map(s => s.trim())
