@@ -303,13 +303,7 @@ header .btn-outline.utility:hover{
     transition: opacity 0.3s ease;
   }
 
-.recipes-stickybar{
-  position: sticky;
-  top: 64px;              /* se il tuo header è più alto, alza questo numero */
-  background: var(--card);
-  padding: 8px 0;
-  z-index: 20;
-}
+
 
 </style>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.48.0/dist/umd/supabase.min.js"></script>
@@ -513,22 +507,6 @@ header .btn-outline.utility:hover{
 
       </div>
     </div>
-
-<!-- Sticky bar: resta visibile mentre scrolli la pagina -->
-<div class="recipes-stickybar">
-  <button type="button"
-          class="btn-outline"
-          id="photoImportBtn"
-          data-i18n="recipes.photoImport.button">
-    Import from photo
-  </button>
-
-  <input id="photoImportInput"
-         type="file"
-         accept="image/*"
-         capture="environment"
-         style="display:none" />
-</div>
 
     <div id="recipesList"></div>
   </div>
@@ -2173,6 +2151,11 @@ tr.appendChild(tdPM);
         const fIn2 = document.createElement("input"); fIn2.type="text"; fIn2.setAttribute("inputmode","decimal"); fIn2.placeholder = t("recipes.autoFromLabels.newIngredientFPlaceholder");
         const packIn2 = document.createElement("input"); packIn2.type="text"; packIn2.setAttribute("inputmode","decimal"); packIn2.placeholder = t("recipes.autoFromLabels.newIngredientPackPlaceholder");
         const btnNew = document.createElement("button"); btnNew.className="btn"; btnNew.textContent = t("recipes.autoFromLabels.createAndAddButton");
+        // ---- PHOTO IMPORT BUTTON (accanto ad "Aggiungi ricetta al pasto") ----
+        const btnPhoto = document.createElement("button");
+        btnPhoto.className = "btn-outline";
+        btnPhoto.textContent = "📷 " + t("recipes.photoImport.button");
+        btnPhoto.onclick = ()=>{ resetPhotoImportForm();  openPhotoImportModal(); };
         btnNew.onclick = ()=>{
           const name = (nameIn.value||"").trim();
           if (!name) { alert(t("alerts.nameRequired")); return; }
@@ -2201,6 +2184,7 @@ tr.appendChild(tdPM);
         form.appendChild(pIn2);
         form.appendChild(fIn2);
         form.appendChild(packIn2);
+        form.appendChild(btnPhoto);
         form.appendChild(btnNew);
         wrap.appendChild(form);
       }
