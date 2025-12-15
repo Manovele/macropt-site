@@ -3567,10 +3567,24 @@ async function photoImportOcrFromApi(file){
     body: JSON.stringify({ image: dataUrl })
   });
 
-  if (!resp.ok){
-    throw new Error("OCR HTTP " + resp.status);
-  }
-  return await resp.json();
+  let payloadText = "";
+try { payloadText = await resp.text(); } catch(e){ payloadText = ""; }
+
+if (!resp.ok){
+  // prova a mostrare l'errore che la function ritorna
+  let msg = "OCR HTTP " + resp.status;
+  try {
+    const j = JSON.parse(payloadText || "{}");
+    if (j && j.error) msg += " — " + j.error;
+    if (j && j.detail) msg += " — " + String(j.detail).slice(0,200);
+  } catch(e){}
+  photoImportSetMsg("err", "recipes.photoImport.errOcrFailed", msg);
+  throw new Error(msg);
+}
+
+// se ok, parse JSON (riusando payloadText)
+return JSON.parse(payloadText || "{}");
+
 }
 
 function photoImportApplyOcrResult(data){
