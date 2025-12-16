@@ -357,6 +357,7 @@
     },
    "sos": {
     "title": "SOS Portion",
+    "close": "Close",
     "subtitle": "Quick estimate of cooked dish grams for this meal.",
     "meal": "Meal",
     "cookedTotal": "Total cooked dish weight (g)",

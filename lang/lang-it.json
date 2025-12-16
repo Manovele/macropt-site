@@ -357,6 +357,7 @@
     },
       "sos": {
                "title": "SOS Porzione",
+               "close": "Chiudi",
                "subtitle": "Stima rapida dei grammi del piatto cotto per questo pasto.",
                "meal": "Pasto",
                "cookedTotal": "Peso totale piatto cotto (g)",

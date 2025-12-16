@@ -823,15 +823,17 @@ header .btn-outline.utility:hover{
 <!-- SOS Portion Modal (indipendente, i18n-ready) -->
 <div class="modal-backdrop" id="sosModal" style="display:none;">
   <div class="modal" role="dialog" aria-modal="true" aria-labelledby="sosTitle">
-    <div class="modal-head">
-      <div>
-        <div id="sosTitle" style="font-weight:700;" data-i18n="sos.title">SOS</div>
-        <div class="small muted" id="sosSubtitle" data-i18n="sos.subtitle">SOS subtitle</div>
+    <header>
+      <b id="sosTitle" data-i18n="sos.title">SOS</b>
+      <div class="actions">
+        <button class="btn-outline utility" id="sosCloseBtn" type="button" data-i18n="sos.close">Chiudi</button>
       </div>
-      <button class="btn-outline" id="sosCloseBtn" type="button" aria-label="Close">×</button>
-    </div>
+    </header>
 
-    <div class="grid grid-12" style="margin-top:10px;">
+    <div class="content">
+      <div class="small muted" id="sosSubtitle" data-i18n="sos.subtitle" style="margin-bottom:10px;">SOS subtitle</div>
+
+      <div class="grid grid-12">
       <div style="grid-column: span 6;">
         <label class="small muted" data-i18n="sos.meal">Meal</label>
         <input id="sosMeal" type="text" readonly style="width:100%; padding:10px; border:1px solid var(--border); border-radius:10px;">
@@ -906,6 +908,7 @@ header .btn-outline.utility:hover{
       </div>
     </div>
   </div>
+ </div>
 </div>
 
 
