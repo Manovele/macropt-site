@@ -825,29 +825,29 @@ header .btn-outline.utility:hover{
   <div class="modal" role="dialog" aria-modal="true" aria-labelledby="sosTitle">
     <div class="modal-head">
       <div>
-        <div id="sosTitle" style="font-weight:700;" data-i18n="planner.sos.title">SOS</div>
-        <div class="small muted" id="sosSubtitle" data-i18n="planner.sos.subtitle">SOS subtitle</div>
+        <div id="sosTitle" style="font-weight:700;" data-i18n="sos.title">SOS</div>
+        <div class="small muted" id="sosSubtitle" data-i18n="sos.subtitle">SOS subtitle</div>
       </div>
       <button class="btn-outline" id="sosCloseBtn" type="button" aria-label="Close">✕</button>
     </div>
 
     <div class="grid grid-12" style="margin-top:10px;">
       <div style="grid-column: span 6;">
-        <label class="small muted" data-i18n="planner.sos.meal">Meal</label>
+        <label class="small muted" data-i18n="sos.meal">Meal</label>
         <input id="sosMeal" type="text" readonly style="width:100%; padding:10px; border:1px solid var(--border); border-radius:10px;">
       </div>
 
       <div style="grid-column: span 6;">
-        <label class="small muted" data-i18n="planner.sos.cookedTotal">Cooked total</label>
-        <input id="sosCookedTotal" type="text" inputmode="decimal" data-i18n-placeholder="planner.sos.cookedTotalPh"
+        <label class="small muted" data-i18n="sos.cookedTotal">Cooked total</label>
+        <input id="sosCookedTotal" type="text" inputmode="decimal" data-i18n-placeholder="sos.cookedTotalPh"
                style="width:100%; padding:10px; border:1px solid var(--border); border-radius:10px;">
       </div>
 
       <div style="grid-column: span 12; margin-top:6px;">
-        <label class="small muted" data-i18n="planner.sos.mode">Mode</label>
+        <label class="small muted" data-i18n="sos.mode">Mode</label>
         <select id="sosMode" style="width:100%; padding:10px; border:1px solid var(--border); border-radius:10px;">
-          <option value="macros" data-i18n="planner.sos.modeMacros">macros</option>
-          <option value="lines" data-i18n="planner.sos.modeLines">lines</option>
+          <option value="macros" data-i18n="sos.modeMacros">macros</option>
+          <option value="lines" data-i18n="sos.modeLines">lines</option>
         </select>
       </div>
 
@@ -855,52 +855,52 @@ header .btn-outline.utility:hover{
       <div id="sosMacrosBox" style="grid-column: span 12; margin-top:6px;">
         <div class="grid grid-12">
           <div style="grid-column: span 3;">
-            <label class="small muted" data-i18n="planner.sos.totC">C</label>
-            <input id="sosTotC" type="text" inputmode="decimal" data-i18n-placeholder="planner.sos.ph0"
+            <label class="small muted" data-i18n="sos.totC">C</label>
+            <input id="sosTotC" type="text" inputmode="decimal" data-i18n-placeholder="sos.ph0"
                    style="width:100%; padding:10px; border:1px solid var(--border); border-radius:10px;">
           </div>
           <div style="grid-column: span 3;">
-            <label class="small muted" data-i18n="planner.sos.totP">P</label>
-            <input id="sosTotP" type="text" inputmode="decimal" data-i18n-placeholder="planner.sos.ph0"
+            <label class="small muted" data-i18n="sos.totP">P</label>
+            <input id="sosTotP" type="text" inputmode="decimal" data-i18n-placeholder="sos.ph0"
                    style="width:100%; padding:10px; border:1px solid var(--border); border-radius:10px;">
           </div>
           <div style="grid-column: span 3;">
-            <label class="small muted" data-i18n="planner.sos.totF">F</label>
-            <input id="sosTotF" type="text" inputmode="decimal" data-i18n-placeholder="planner.sos.ph0"
+            <label class="small muted" data-i18n="sos.totF">F</label>
+            <input id="sosTotF" type="text" inputmode="decimal" data-i18n-placeholder="sos.ph0"
                    style="width:100%; padding:10px; border:1px solid var(--border); border-radius:10px;">
           </div>
           <div style="grid-column: span 3;">
-            <label class="small muted" data-i18n="planner.sos.totK">kcal</label>
-            <input id="sosTotK" type="text" inputmode="decimal" data-i18n-placeholder="planner.sos.phAuto"
+            <label class="small muted" data-i18n="sos.totK">kcal</label>
+            <input id="sosTotK" type="text" inputmode="decimal" data-i18n-placeholder="sos.phAuto"
                    style="width:100%; padding:10px; border:1px solid var(--border); border-radius:10px;">
           </div>
         </div>
-        <div class="small muted" style="margin-top:6px;" data-i18n="planner.sos.kcalHint">kcal hint</div>
+        <div class="small muted" style="margin-top:6px;" data-i18n="sos.kcalHint">kcal hint</div>
       </div>
 
       <!-- Mode: lines -->
       <div id="sosLinesBox" style="grid-column: span 12; margin-top:6px; display:none;">
-        <label class="small muted" data-i18n="planner.sos.linesLabel">Lines</label>
-        <textarea id="sosLines" rows="6" data-i18n-placeholder="planner.sos.linesPh"
+        <label class="small muted" data-i18n="sos.linesLabel">Lines</label>
+        <textarea id="sosLines" rows="6" data-i18n-placeholder="sos.linesPh"
                   style="width:100%; padding:10px; border:1px solid var(--border); border-radius:10px; resize:vertical;"></textarea>
-        <div class="small muted" style="margin-top:6px;" data-i18n="planner.sos.linesHint">lines hint</div>
+        <div class="small muted" style="margin-top:6px;" data-i18n="sos.linesHint">lines hint</div>
       </div>
 
       <div style="grid-column: span 12; margin-top:10px; display:flex; gap:10px; justify-content:flex-end;">
-        <button class="btn-outline" id="sosResetBtn" type="button" data-i18n="planner.sos.reset">Reset</button>
-        <button class="btn" id="sosCalcBtn" type="button" data-i18n="planner.sos.calc">Calc</button>
+        <button class="btn-outline" id="sosResetBtn" type="button" data-i18n="sos.reset">Reset</button>
+        <button class="btn" id="sosCalcBtn" type="button" data-i18n="sos.calc">Calc</button>
       </div>
 
       <div id="sosOut" style="grid-column: span 12; margin-top:10px; display:none;">
         <div class="card" style="padding:12px;">
-          <div style="font-weight:700;" data-i18n="planner.sos.resultTitle">Result</div>
+          <div style="font-weight:700;" data-i18n="sos.resultTitle">Result</div>
           <div class="small muted" id="sosOutDetails" style="margin-top:6px;"></div>
         </div>
       </div>
 
       <div id="sosErr" style="grid-column: span 12; margin-top:10px; display:none;">
         <div class="card" style="padding:12px; border:1px solid var(--bad);">
-          <div style="font-weight:700; color:var(--bad);" data-i18n="planner.sos.errTitle">Error</div>
+          <div style="font-weight:700; color:var(--bad);" data-i18n="sos.errTitle">Error</div>
           <div class="small" id="sosErrMsg" style="margin-top:6px;"></div>
         </div>
       </div>
@@ -2497,12 +2497,12 @@ function sosClose(){
 function sosParseLinesToMacros(text){
   const rows = String(text || "").split(/\r?\n/).map(x=>x.trim()).filter(Boolean);
   if (!rows.length) {
-    return { err: t("planner.sos.errNeedAtLeastOneLine"), macros: null };
+    return { err: t("sos.errNeedAtLeastOneLine"), macros: null };
   }
 
   const lib = Array.isArray(state?.ingredientLibrary) ? state.ingredientLibrary : [];
   if (!lib.length) {
-    return { err: t("planner.sos.errLibraryEmpty"), macros: null };
+    return { err: t("sos.errLibraryEmpty"), macros: null };
   }
 
   let tot = { c:0, p:0, f:0 };
@@ -2526,23 +2526,23 @@ function sosParseLinesToMacros(text){
   });
 
   if (missing.length){
-    return { err: t("planner.sos.errMissingItemsPrefix") + " " + missing.join(" | "), macros: null };
+    return { err: t("sos.errMissingItemsPrefix") + " " + missing.join(" | "), macros: null };
   }
 
   return { err: null, macros: tot };
 }
 
 function sosCalc(){
-  if (!__sosMealKey) return sosSetErr(t("planner.sos.errMealInvalid"));
+  if (!__sosMealKey) return sosSetErr(t("sos.errMealInvalid"));
 
   const cookedTot = sosToNum(document.getElementById("sosCookedTotal")?.value);
   if (!Number.isFinite(cookedTot) || cookedTot <= 0){
-    return sosSetErr(t("planner.sos.errNeedCookedTotal"));
+    return sosSetErr(t("sos.errNeedCookedTotal"));
   }
 
   // target meal macros (read-only)
   const tgt = (typeof targetFor === "function") ? targetFor(__sosMealKey) : null;
-  if (!tgt) return sosSetErr(t("planner.sos.errTargetMissing"));
+  if (!tgt) return sosSetErr(t("sos.errTargetMissing"));
 
   const tgtK = (typeof kcal === "function")
     ? kcal(tgt)
@@ -2567,7 +2567,7 @@ function sosCalc(){
     const anyMacro = [pot.c,pot.p,pot.f].some(x => Number.isFinite(x) && x > 0);
 
     if (!anyMacro && !(Number.isFinite(kIn) && kIn > 0)){
-      return sosSetErr(t("planner.sos.errNeedTotals"));
+      return sosSetErr(t("sos.errNeedTotals"));
     }
 
     if (Number.isFinite(kIn) && kIn > 0) potK = kIn;
@@ -2577,12 +2577,12 @@ function sosCalc(){
   }
 
   if (!Number.isFinite(potK) || potK <= 0){
-    return sosSetErr(t("planner.sos.errKcalInvalid"));
+    return sosSetErr(t("sos.errKcalInvalid"));
   }
 
   // Porzione per kcal: semplice, robusta, indipendente dal solver
   let portion = cookedTot * (tgtK / potK);
-  if (!Number.isFinite(portion) || portion <= 0) return sosSetErr(t("planner.sos.errCantCompute"));
+  if (!Number.isFinite(portion) || portion <= 0) return sosSetErr(t("sos.errCantCompute"));
 
   // clamp al totale cotto
   portion = Math.max(0, Math.min(cookedTot, portion));
@@ -2603,12 +2603,12 @@ function sosCalc(){
 
   sosSetErr("");
   sosSetOut(
-    `<div><b>${t("planner.sos.outPortion")}:</b> ${sosFmt(portion,0)} g</div>
+    `<div><b>${t("sos.outPortion")}:</b> ${sosFmt(portion,0)} g</div>
      <div class="small muted" style="margin-top:6px;">
-       ${t("planner.sos.outMealTarget")}: C ${sosFmt(tgt.c,0)} | P ${sosFmt(tgt.p,0)} | F ${sosFmt(tgt.f,0)} | kcal ${sosFmt(tgtK,0)}
+       ${t("sos.outMealTarget")}: C ${sosFmt(tgt.c,0)} | P ${sosFmt(tgt.p,0)} | F ${sosFmt(tgt.f,0)} | kcal ${sosFmt(tgtK,0)}
      </div>
      <div class="small muted" style="margin-top:6px;">
-       ${t("planner.sos.outEstimate")}: C ${sosFmt(est.c,0)} | P ${sosFmt(est.p,0)} | F ${sosFmt(est.f,0)} | kcal ${sosFmt(est.k,0)}
+       ${t("sos.outEstimate")}: C ${sosFmt(est.c,0)} | P ${sosFmt(est.p,0)} | F ${sosFmt(est.f,0)} | kcal ${sosFmt(est.k,0)}
      </div>`
   );
 }
@@ -2760,7 +2760,7 @@ state.recipes
         const iconBtn = document.createElement("button");
         iconBtn.type = "button";
         iconBtn.innerHTML = "📖";
-        iconBtn.title = t("planner.sos.bookTooltip");
+        iconBtn.title = t("sos.bookTooltip");
         iconBtn.style.border = "none";
         iconBtn.style.background = "none";
         iconBtn.style.cursor = "pointer";
@@ -2773,7 +2773,7 @@ state.recipes
         const sosBtn = document.createElement("button");
         sosBtn.type = "button";
         sosBtn.innerHTML = "🆘";
-        sosBtn.title = t("planner.sos.tooltip");
+        sosBtn.title = t("sos.tooltip");
         sosBtn.style.border = "none";
         sosBtn.style.background = "none";
         sosBtn.style.cursor = "pointer";
