@@ -820,6 +820,94 @@ header .btn-outline.utility:hover{
   </div>
 </div>
 
+<!-- SOS Portion Modal (indipendente, i18n-ready) -->
+<div class="modal-backdrop" id="sosModal" style="display:none;">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="sosTitle">
+    <div class="modal-head">
+      <div>
+        <div id="sosTitle" style="font-weight:700;" data-i18n="planner.sos.title">SOS</div>
+        <div class="small muted" id="sosSubtitle" data-i18n="planner.sos.subtitle">SOS subtitle</div>
+      </div>
+      <button class="btn-outline" id="sosCloseBtn" type="button" aria-label="Close">✕</button>
+    </div>
+
+    <div class="grid grid-12" style="margin-top:10px;">
+      <div style="grid-column: span 6;">
+        <label class="small muted" data-i18n="planner.sos.meal">Meal</label>
+        <input id="sosMeal" type="text" readonly style="width:100%; padding:10px; border:1px solid var(--border); border-radius:10px;">
+      </div>
+
+      <div style="grid-column: span 6;">
+        <label class="small muted" data-i18n="planner.sos.cookedTotal">Cooked total</label>
+        <input id="sosCookedTotal" type="text" inputmode="decimal" data-i18n-placeholder="planner.sos.cookedTotalPh"
+               style="width:100%; padding:10px; border:1px solid var(--border); border-radius:10px;">
+      </div>
+
+      <div style="grid-column: span 12; margin-top:6px;">
+        <label class="small muted" data-i18n="planner.sos.mode">Mode</label>
+        <select id="sosMode" style="width:100%; padding:10px; border:1px solid var(--border); border-radius:10px;">
+          <option value="macros" data-i18n="planner.sos.modeMacros">macros</option>
+          <option value="lines" data-i18n="planner.sos.modeLines">lines</option>
+        </select>
+      </div>
+
+      <!-- Mode: macros -->
+      <div id="sosMacrosBox" style="grid-column: span 12; margin-top:6px;">
+        <div class="grid grid-12">
+          <div style="grid-column: span 3;">
+            <label class="small muted" data-i18n="planner.sos.totC">C</label>
+            <input id="sosTotC" type="text" inputmode="decimal" data-i18n-placeholder="planner.sos.ph0"
+                   style="width:100%; padding:10px; border:1px solid var(--border); border-radius:10px;">
+          </div>
+          <div style="grid-column: span 3;">
+            <label class="small muted" data-i18n="planner.sos.totP">P</label>
+            <input id="sosTotP" type="text" inputmode="decimal" data-i18n-placeholder="planner.sos.ph0"
+                   style="width:100%; padding:10px; border:1px solid var(--border); border-radius:10px;">
+          </div>
+          <div style="grid-column: span 3;">
+            <label class="small muted" data-i18n="planner.sos.totF">F</label>
+            <input id="sosTotF" type="text" inputmode="decimal" data-i18n-placeholder="planner.sos.ph0"
+                   style="width:100%; padding:10px; border:1px solid var(--border); border-radius:10px;">
+          </div>
+          <div style="grid-column: span 3;">
+            <label class="small muted" data-i18n="planner.sos.totK">kcal</label>
+            <input id="sosTotK" type="text" inputmode="decimal" data-i18n-placeholder="planner.sos.phAuto"
+                   style="width:100%; padding:10px; border:1px solid var(--border); border-radius:10px;">
+          </div>
+        </div>
+        <div class="small muted" style="margin-top:6px;" data-i18n="planner.sos.kcalHint">kcal hint</div>
+      </div>
+
+      <!-- Mode: lines -->
+      <div id="sosLinesBox" style="grid-column: span 12; margin-top:6px; display:none;">
+        <label class="small muted" data-i18n="planner.sos.linesLabel">Lines</label>
+        <textarea id="sosLines" rows="6" data-i18n-placeholder="planner.sos.linesPh"
+                  style="width:100%; padding:10px; border:1px solid var(--border); border-radius:10px; resize:vertical;"></textarea>
+        <div class="small muted" style="margin-top:6px;" data-i18n="planner.sos.linesHint">lines hint</div>
+      </div>
+
+      <div style="grid-column: span 12; margin-top:10px; display:flex; gap:10px; justify-content:flex-end;">
+        <button class="btn-outline" id="sosResetBtn" type="button" data-i18n="planner.sos.reset">Reset</button>
+        <button class="btn" id="sosCalcBtn" type="button" data-i18n="planner.sos.calc">Calc</button>
+      </div>
+
+      <div id="sosOut" style="grid-column: span 12; margin-top:10px; display:none;">
+        <div class="card" style="padding:12px;">
+          <div style="font-weight:700;" data-i18n="planner.sos.resultTitle">Result</div>
+          <div class="small muted" id="sosOutDetails" style="margin-top:6px;"></div>
+        </div>
+      </div>
+
+      <div id="sosErr" style="grid-column: span 12; margin-top:10px; display:none;">
+        <div class="card" style="padding:12px; border:1px solid var(--bad);">
+          <div style="font-weight:700; color:var(--bad);" data-i18n="planner.sos.errTitle">Error</div>
+          <div class="small" id="sosErrMsg" style="margin-top:6px;"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 
 <script>
 // ==== STEP 2 – i18n core per il PLANNER ====
@@ -2304,6 +2392,271 @@ function closeRecipePreview(){
     if (btn) btn.onclick = closeRecipePreview;
   }
 
+/* =========================
+   SOS Portion (indipendente, i18n)
+   - Legge solo target del pasto (targetFor)
+   - Non salva, non modifica pasti, non chiama solver
+   - Vive e muore nel modal
+   ========================= */
+
+let __sosMealKey = null;
+
+function sosToNum(v){
+  const s = String(v ?? "").trim().replace(",", ".");
+  const n = parseFloat(s);
+  return Number.isFinite(n) ? n : NaN;
+}
+
+function sosFmt(n, d=0){
+  return Number.isFinite(n) ? Number(n).toFixed(d) : "-";
+}
+
+function sosSetErr(msg){
+  const box = document.getElementById("sosErr");
+  const tEl = document.getElementById("sosErrMsg");
+  if (!box || !tEl) return;
+  if (!msg){
+    box.style.display = "none";
+    tEl.textContent = "";
+    return;
+  }
+  box.style.display = "block";
+  tEl.textContent = msg;
+}
+
+function sosSetOut(html){
+  const box = document.getElementById("sosOut");
+  const tEl = document.getElementById("sosOutDetails");
+  if (!box || !tEl) return;
+  if (!html){
+    box.style.display = "none";
+    tEl.innerHTML = "";
+    return;
+  }
+  box.style.display = "block";
+  tEl.innerHTML = html;
+}
+
+function sosReset(){
+  const cooked = document.getElementById("sosCookedTotal");
+  const mode   = document.getElementById("sosMode");
+  const c      = document.getElementById("sosTotC");
+  const p      = document.getElementById("sosTotP");
+  const f      = document.getElementById("sosTotF");
+  const k      = document.getElementById("sosTotK");
+  const lines  = document.getElementById("sosLines");
+
+  if (cooked) cooked.value = "";
+  if (mode) mode.value = "macros";
+  if (c) c.value = "";
+  if (p) p.value = "";
+  if (f) f.value = "";
+  if (k) k.value = "";
+  if (lines) lines.value = "";
+
+  const mb = document.getElementById("sosMacrosBox");
+  const lb = document.getElementById("sosLinesBox");
+  if (mb) mb.style.display = "block";
+  if (lb) lb.style.display = "none";
+
+  sosSetErr("");
+  sosSetOut("");
+}
+
+function sosOpen(mealKey){
+  __sosMealKey = mealKey || null;
+
+  const modal = document.getElementById("sosModal");
+  if (!modal) return;
+
+  // Traduci sempre prima di mostrare (se cambia lingua a runtime)
+  if (typeof applyPlannerTranslationsToDom === "function") {
+    applyPlannerTranslationsToDom();
+  }
+
+  // Label pasto: prova mealLabels[mealKey], altrimenti key
+  const mealLabel =
+    (typeof mealLabels === "object" && mealLabels && mealKey && mealLabels[mealKey])
+      ? mealLabels[mealKey]
+      : String(mealKey || "");
+
+  const mealInp = document.getElementById("sosMeal");
+  if (mealInp) mealInp.value = mealLabel;
+
+  sosSetErr("");
+  sosSetOut("");
+  modal.style.display = "flex";
+}
+
+function sosClose(){
+  const modal = document.getElementById("sosModal");
+  if (!modal) return;
+  modal.style.display = "none";
+}
+
+function sosParseLinesToMacros(text){
+  const rows = String(text || "").split(/\r?\n/).map(x=>x.trim()).filter(Boolean);
+  if (!rows.length) {
+    return { err: t("planner.sos.errNeedAtLeastOneLine"), macros: null };
+  }
+
+  const lib = Array.isArray(state?.ingredientLibrary) ? state.ingredientLibrary : [];
+  if (!lib.length) {
+    return { err: t("planner.sos.errLibraryEmpty"), macros: null };
+  }
+
+  let tot = { c:0, p:0, f:0 };
+  const missing = [];
+
+  rows.forEach(line=>{
+    const parts = line.split(/=|:|,|;/).map(x=>x.trim()).filter(Boolean);
+    if (parts.length < 2){ missing.push(line); return; }
+
+    const name = parts[0];
+    const grams = sosToNum(parts[1]);
+    if (!Number.isFinite(grams) || grams < 0){ missing.push(line); return; }
+
+    const found = lib.find(it => String(it.name||"").toLowerCase() === String(name||"").toLowerCase());
+    if (!found || !found.per100){ missing.push(name); return; }
+
+    const per100 = found.per100;
+    tot.c += (Number(per100.c)||0) * (grams/100);
+    tot.p += (Number(per100.p)||0) * (grams/100);
+    tot.f += (Number(per100.f)||0) * (grams/100);
+  });
+
+  if (missing.length){
+    return { err: t("planner.sos.errMissingItemsPrefix") + " " + missing.join(" | "), macros: null };
+  }
+
+  return { err: null, macros: tot };
+}
+
+function sosCalc(){
+  if (!__sosMealKey) return sosSetErr(t("planner.sos.errMealInvalid"));
+
+  const cookedTot = sosToNum(document.getElementById("sosCookedTotal")?.value);
+  if (!Number.isFinite(cookedTot) || cookedTot <= 0){
+    return sosSetErr(t("planner.sos.errNeedCookedTotal"));
+  }
+
+  // target meal macros (read-only)
+  const tgt = (typeof targetFor === "function") ? targetFor(__sosMealKey) : null;
+  if (!tgt) return sosSetErr(t("planner.sos.errTargetMissing"));
+
+  const tgtK = (typeof kcal === "function")
+    ? kcal(tgt)
+    : (4*(tgt.c||0) + 4*(tgt.p||0) + 9*(tgt.f||0));
+
+  const mode = document.getElementById("sosMode")?.value || "macros";
+
+  let pot = { c:NaN, p:NaN, f:NaN };
+  let potK = NaN;
+
+  if (mode === "lines"){
+    const parsed = sosParseLinesToMacros(document.getElementById("sosLines")?.value || "");
+    if (parsed.err) return sosSetErr(parsed.err);
+    pot = parsed.macros;
+    potK = (typeof kcal === "function") ? kcal(pot) : (4*pot.c + 4*pot.p + 9*pot.f);
+  } else {
+    pot.c = sosToNum(document.getElementById("sosTotC")?.value);
+    pot.p = sosToNum(document.getElementById("sosTotP")?.value);
+    pot.f = sosToNum(document.getElementById("sosTotF")?.value);
+    const kIn = sosToNum(document.getElementById("sosTotK")?.value);
+
+    const anyMacro = [pot.c,pot.p,pot.f].some(x => Number.isFinite(x) && x > 0);
+
+    if (!anyMacro && !(Number.isFinite(kIn) && kIn > 0)){
+      return sosSetErr(t("planner.sos.errNeedTotals"));
+    }
+
+    if (Number.isFinite(kIn) && kIn > 0) potK = kIn;
+    else potK = (typeof kcal === "function")
+      ? kcal({c:(pot.c||0), p:(pot.p||0), f:(pot.f||0)})
+      : (4*(pot.c||0) + 4*(pot.p||0) + 9*(pot.f||0));
+  }
+
+  if (!Number.isFinite(potK) || potK <= 0){
+    return sosSetErr(t("planner.sos.errKcalInvalid"));
+  }
+
+  // Porzione per kcal: semplice, robusta, indipendente dal solver
+  let portion = cookedTot * (tgtK / potK);
+  if (!Number.isFinite(portion) || portion <= 0) return sosSetErr(t("planner.sos.errCantCompute"));
+
+  // clamp al totale cotto
+  portion = Math.max(0, Math.min(cookedTot, portion));
+
+  // stima macro porzione se disponibili
+  const potHasMacros = [pot.c,pot.p,pot.f].every(x => Number.isFinite(x));
+  let est = { c:NaN, p:NaN, f:NaN, k:NaN };
+
+  if (potHasMacros){
+    const ratio = portion / cookedTot;
+    est.c = pot.c * ratio;
+    est.p = pot.p * ratio;
+    est.f = pot.f * ratio;
+    est.k = (typeof kcal === "function") ? kcal(est) : (4*est.c + 4*est.p + 9*est.f);
+  } else {
+    est.k = tgtK;
+  }
+
+  sosSetErr("");
+  sosSetOut(
+    `<div><b>${t("planner.sos.outPortion")}:</b> ${sosFmt(portion,0)} g</div>
+     <div class="small muted" style="margin-top:6px;">
+       ${t("planner.sos.outMealTarget")}: C ${sosFmt(tgt.c,0)} | P ${sosFmt(tgt.p,0)} | F ${sosFmt(tgt.f,0)} | kcal ${sosFmt(tgtK,0)}
+     </div>
+     <div class="small muted" style="margin-top:6px;">
+       ${t("planner.sos.outEstimate")}: C ${sosFmt(est.c,0)} | P ${sosFmt(est.p,0)} | F ${sosFmt(est.f,0)} | kcal ${sosFmt(est.k,0)}
+     </div>`
+  );
+}
+
+(function sosWire(){
+  function init(){
+    const modal = document.getElementById("sosModal");
+    const closeBtn = document.getElementById("sosCloseBtn");
+    const resetBtn = document.getElementById("sosResetBtn");
+    const calcBtn  = document.getElementById("sosCalcBtn");
+    const modeSel  = document.getElementById("sosMode");
+
+    if (closeBtn) closeBtn.addEventListener("click", sosClose);
+    if (resetBtn) resetBtn.addEventListener("click", sosReset);
+    if (calcBtn)  calcBtn.addEventListener("click", sosCalc);
+
+    if (modal){
+      modal.addEventListener("click", function(e){
+        if (e.target === modal) sosClose();
+      });
+    }
+
+    if (modeSel){
+      modeSel.addEventListener("change", function(){
+        const m = modeSel.value;
+        const mb = document.getElementById("sosMacrosBox");
+        const lb = document.getElementById("sosLinesBox");
+        if (mb) mb.style.display = (m === "macros") ? "block" : "none";
+        if (lb) lb.style.display = (m === "lines") ? "block" : "none";
+        sosSetErr("");
+        sosSetOut("");
+      });
+    }
+
+    document.addEventListener("keydown", function(e){
+      if (e.key === "Escape"){
+        if (modal && modal.style.display !== "none") sosClose();
+      }
+    });
+  }
+
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init);
+  else init();
+
+  // hook di debug (non serve al planner)
+  window.__sosOpen = sosOpen;
+})();
+
   function renderMeals(){
         mealsRoot.innerHTML = "";
 
@@ -2402,22 +2755,41 @@ state.recipes
       selRow.appendChild(sel);
 
       // se c'è una ricetta selezionata, mostro l'icona libro
+           // se c'è una ricetta selezionata, mostro l'icona libro + SOS
       if (rec){
         const iconBtn = document.createElement("button");
         iconBtn.type = "button";
         iconBtn.innerHTML = "📖";
-        iconBtn.title = "Mostra descrizione ricetta";
+        iconBtn.title = t("planner.sos.bookTooltip");
         iconBtn.style.border = "none";
         iconBtn.style.background = "none";
         iconBtn.style.cursor = "pointer";
         iconBtn.style.padding = "0";
         iconBtn.style.fontSize = "18px";
         iconBtn.style.lineHeight = "1";
-
         iconBtn.onclick = ()=>{ openRecipePreview(rec); };
-
         selRow.appendChild(iconBtn);
+
+        const sosBtn = document.createElement("button");
+        sosBtn.type = "button";
+        sosBtn.innerHTML = "🆘";
+        sosBtn.title = t("planner.sos.tooltip");
+        sosBtn.style.border = "none";
+        sosBtn.style.background = "none";
+        sosBtn.style.cursor = "pointer";
+        sosBtn.style.padding = "0";
+        sosBtn.style.fontSize = "18px";
+        sosBtn.style.lineHeight = "1";
+        sosBtn.style.marginLeft = "6px";
+        sosBtn.onclick = ()=> {
+          // vive e muore nel popup: nessuna scrittura su pasti
+          if (typeof sosReset === "function") sosReset();
+          if (typeof sosOpen === "function") sosOpen(key);
+          else if (typeof window.__sosOpen === "function") window.__sosOpen(key);
+        };
+        selRow.appendChild(sosBtn);
       }
+
 
       left.appendChild(selRow);
 
