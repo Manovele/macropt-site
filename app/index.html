@@ -828,7 +828,7 @@ header .btn-outline.utility:hover{
         <div id="sosTitle" style="font-weight:700;" data-i18n="sos.title">SOS</div>
         <div class="small muted" id="sosSubtitle" data-i18n="sos.subtitle">SOS subtitle</div>
       </div>
-      <button class="btn-outline" id="sosCloseBtn" type="button" aria-label="Close">✕</button>
+      <button class="btn-outline" id="sosCloseBtn" type="button" aria-label="Close">×</button>
     </div>
 
     <div class="grid grid-12" style="margin-top:10px;">
@@ -2463,6 +2463,42 @@ function sosReset(){
   sosSetOut("");
 }
 
+function sosGetMealIngredientNames(mealKey){
+  try{
+    const st = state && state.meals ? state.meals[mealKey] : null;
+    if (!st || !Array.isArray(state?.recipes)) return [];
+
+    const ids = [];
+    if (st.split_v8 && st.split_v8.enabled){
+      if (st.split_v8.primo && st.split_v8.primo.recipeId) ids.push(st.split_v8.primo.recipeId);
+      if (st.split_v8.secondo && st.split_v8.secondo.recipeId) ids.push(st.split_v8.secondo.recipeId);
+    } else {
+      if (st.recipeId) ids.push(st.recipeId);
+    }
+
+    const out = [];
+    const seen = {};
+    ids.forEach(id=>{
+      const rec = state.recipes.find(r => r && r.id === id);
+      if (!rec || !Array.isArray(rec.ingredients)) return;
+
+      rec.ingredients.forEach(ing=>{
+        const n = String(ing?.name || "").trim();
+        if (!n) return;
+        const k = n.toLowerCase();
+        if (seen[k]) return;
+        seen[k] = true;
+        out.push(n);
+      });
+    });
+
+    return out;
+  } catch(e){
+    return [];
+  }
+}
+
+
 function sosOpen(mealKey){
   __sosMealKey = mealKey || null;
 
@@ -2482,6 +2518,14 @@ function sosOpen(mealKey){
 
   const mealInp = document.getElementById("sosMeal");
   if (mealInp) mealInp.value = mealLabel;
+
+  const linesEl = document.getElementById("sosLines");
+    if (linesEl && !String(linesEl.value || "").trim()){
+    const names = sosGetMealIngredientNames(mealKey);
+      if (names && names.length){
+           linesEl.value = names.map(n => `${n} = `).join("\n");
+         }
+    }
 
   sosSetErr("");
   sosSetOut("");
